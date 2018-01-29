@@ -1,7 +1,7 @@
 package com.cw.client;
 
 import com.cw.appif.ServerServiceIF;
-import com.cw.exceptions.AuthException;
+import com.cw.exceptions.UserException;
 import com.cw.models.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,14 +22,17 @@ public class ClientApplication {
 	}
 
 	public static void main(String[] args) {
-        try {
+	    try{
             ServerServiceIF service = SpringApplication.run(ClientApplication.class, args).
                     getBean(ServerServiceIF.class);
             user    = new User("Denis","1234","e@mail.co");
-            if(!service.auth(user)) throw new AuthException();
-            System.out.println("User authed");
-        } catch (AuthException e) {
+            service.register(user);
+            System.out.println("Reg succesfull");
+            service.auth(user);
+            System.out.println("I`m authed");
+        } catch (UserException e) {
             e.printStackTrace();
         }
+
     }
 }
