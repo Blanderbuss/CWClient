@@ -1,9 +1,11 @@
 package com.cw.models;
 
+import java.util.ArrayList;
+
 public class Fighter extends FighterA{
 
     @Override
-    public Action doAction() {
-        return Action.DEFEND;
+    public actTarget doAction(ArrayList<FighterA> fighters) {
+        return new actTarget(Action.ATTACK, fighters.get(0).getName());
     }
 }

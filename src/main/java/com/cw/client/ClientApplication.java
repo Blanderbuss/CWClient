@@ -13,6 +13,8 @@ public class ClientApplication {
 
     private static User user;
 
+    //TODO add methods for creating fighters
+
 	@Bean
     RmiProxyFactoryBean service() {
 		RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
@@ -30,6 +32,7 @@ public class ClientApplication {
             System.out.println("Reg succesfull");
             service.auth(user);
             System.out.println("I`m authed");
+            //TODO send fighter to server
         } catch (UserException e) {
             e.printStackTrace();
         }
