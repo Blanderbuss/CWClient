@@ -26,9 +26,15 @@ public abstract class FighterA {
         FIGHTING
     }
 
+	public FighterA(String name, int lvl) {
+		super();
+		this.name = name;
+		this.lvl = lvl;
+	}
+    
     private String name;
 
-    private int lvl;
+	private int lvl;
     private String equipped;
     private Status status = Status.UNREGISTERED;
 
@@ -94,6 +100,12 @@ public abstract class FighterA {
         setCurSpeed(getCurSpeed() - 1);
         return getCurSpeed() == 0;
     }
+    
+    @Override
+	public String toString() {
+		return "FighterA [name=" + name + ", lvl=" + lvl + ", equipped=" + equipped + ", status=" + status + ", curHp="
+				+ curHp + ", curSpeed=" + curSpeed + "]";
+	}
 
     public abstract actTarget doAction(ArrayList<FighterA> fighters);
 }
