@@ -74,17 +74,30 @@ public abstract class FighterA implements Serializable{
     private Status status = Status.UNREGISTERED;
     @NotNull
     private State state = State.FREE;
-
+    @Min(0)
+    private int maxHp;
+    @Min(0)
+    private int maxSpeed;
     @Min(0)
     private int curHp;
     @Min(0)
     private int curSpeed;
 
-    public FighterA() { }
+    public FighterA() {
+    }
 
-    public FighterA(String name, String equipped) {
+    /**
+     * @param name is given through user input
+     * @param lvl is given through getting it from user
+     */
+    public FighterA(String name, int lvl) {
         this.name = name;
-        this.equipped = equipped;
+        this.lvl = lvl;
+        //Calculatin` initial stats
+        setMaxSpeed((int) (20-getLvl()*0.1));
+        setMaxHp(50+getLvl()*2);
+        setCurHp(getMaxHp());
+        setCurSpeed(getMaxSpeed());
     }
 
     public final String getName() {
@@ -119,6 +132,22 @@ public abstract class FighterA implements Serializable{
         this.status = status;
     }
 
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
     public final int getCurHp() {
         return curHp;
     }
@@ -131,17 +160,11 @@ public abstract class FighterA implements Serializable{
         return curSpeed;
     }
 
-    public final void setCurSpeed(int curSpeed) {
-        this.curSpeed = curSpeed;
-    }
+    public final void setCurSpeed(int curSpeed) { this.curSpeed = curSpeed;  }
 
-    public State getState() {
-        return state;
-    }
+    public State getState() { return state; }
 
-    public void setState(State state) {
-        this.state = state;
-    }
+    public void setState(State state) {this.state = state;}
 
     public final boolean rest(){
         setCurSpeed(getCurSpeed() - 1);

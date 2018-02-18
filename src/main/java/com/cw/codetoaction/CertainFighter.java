@@ -13,7 +13,7 @@ public class CertainFighter extends FighterA {
 	}
 
 	public CertainFighter(String name, int lvl) {
-		super(name, "");
+		super(name, 0);
 	}
 
 }
