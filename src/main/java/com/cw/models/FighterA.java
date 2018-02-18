@@ -1,17 +1,46 @@
 package com.cw.models;
 
+
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class FighterA {
+public abstract class FighterA implements Serializable{
+    private static final long serialVersionUID = 1L;
     //TODO More properties
-    public class actTarget{
+    public class ActTarget{
+        @NotNull
         private Action action;
-        private String target;
+        @Min(0)
+        private int target;
 
-        public actTarget(Action action, String target) {
+        public ActTarget(Action action, int target) {
             this.action = action;
             this.target = target;
         }
+
+        public Action getAction() {
+            return action;
+        }
+
+        public void setAction(Action action) {
+            this.action = action;
+        }
+
+        public int getTarget() {
+            return target;
+        }
+
+        public void setTarget(int target) {
+            this.target = target;
+        }
+
     }
 
     public enum Action {
@@ -26,19 +55,29 @@ public abstract class FighterA {
         FIGHTING
     }
 
-	public FighterA(String name, int lvl) {
-		super();
-		this.name = name;
-		this.lvl = lvl;
-	}
-    
+    public enum State {
+        FREE,
+        DEFENDING
+    }
+
+    @Size(min=3, max=80)
+    @NotNull
     private String name;
+    @Min(0)
+    @Max(80) // TODO revise
+    private int lvl;
 
-	private int lvl;
+    @Size(min=3)
+    @NotNull
     private String equipped;
+    @NotNull
     private Status status = Status.UNREGISTERED;
+    @NotNull
+    private State state = State.FREE;
 
+    @Min(0)
     private int curHp;
+    @Min(0)
     private int curSpeed;
 
     public FighterA() { }
@@ -96,16 +135,18 @@ public abstract class FighterA {
         this.curSpeed = curSpeed;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     public final boolean rest(){
         setCurSpeed(getCurSpeed() - 1);
         return getCurSpeed() == 0;
     }
-    
-    @Override
-	public String toString() {
-		return "FighterA [name=" + name + ", lvl=" + lvl + ", equipped=" + equipped + ", status=" + status + ", curHp="
-				+ curHp + ", curSpeed=" + curSpeed + "]";
-	}
 
-    public abstract actTarget doAction(ArrayList<FighterA> fighters);
+    public abstract ActTarget doAction(ArrayList<FighterA> fighters);
 }

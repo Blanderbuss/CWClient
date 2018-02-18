@@ -3,7 +3,7 @@ package com.cw.appif;
 import com.cw.exceptions.FighterException;
 import com.cw.exceptions.UserException;
 import com.cw.models.FighterA;
-import com.cw.models.User;
+import com.cw.models.db.User;
 
 
 public interface ServerServiceIF{

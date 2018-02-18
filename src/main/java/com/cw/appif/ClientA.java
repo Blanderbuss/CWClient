@@ -1,6 +1,6 @@
 /*package com.cw.appif;
 
-import com.cw.models.User;
+import com.cw.models.db.User;
 
 public abstract class ClientA {
 
