@@ -4,6 +4,6 @@ import com.cw.models.GameEnvironment;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface ActionDoer {
+public interface ActionExecutor {
     Fighter.ActTarget doAction(Fighter self, GameEnvironment env);
 }

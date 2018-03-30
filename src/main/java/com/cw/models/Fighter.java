@@ -1,7 +1,7 @@
 package com.cw.models;
 
 
-import com.cw.appif.ActionDoer;
+import com.cw.appif.ActionExecutor;
 import com.cw.models.entities.Artefact;
 import com.cw.models.entities.Set;
 
@@ -13,7 +13,6 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Fighter implements Serializable{
-    private static final long serialVersionUID = 1L;
     //TODO More properties
     public class ActTarget{
         @NotNull
@@ -81,14 +80,14 @@ public class Fighter implements Serializable{
     @Min(0)
     private int curSpeed;
 
-    private ActionDoer actionDoer;
+    private ActionExecutor actionExecutor;
 
     private List<Artefact> artefacts;
 
     public Fighter() {
     }
 
-    public Fighter(Set set, ActionDoer actionDoer){
+    public Fighter(Set set, ActionExecutor actionExecutor){
         //TODO
     }
 
@@ -118,12 +117,12 @@ public class Fighter implements Serializable{
         this.lvl = lvl;
     }
 
-    public ActionDoer getActionDoer() {
-        return actionDoer;
+    public ActionExecutor getActionExecutor() {
+        return actionExecutor;
     }
 
-    public void setActionDoer(ActionDoer actionDoer) {
-        this.actionDoer = actionDoer;
+    public void setActionExecutor(ActionExecutor actionExecutor) {
+        this.actionExecutor = actionExecutor;
     }
 
     public List<Artefact> getArtefacts() {
