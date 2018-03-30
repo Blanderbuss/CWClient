@@ -1,6 +1,4 @@
-package com.cw.codetoaction;
-
-import com.cw.models.Fighter;
+package com.cw.models;
 
 import java.util.Date;
 import java.util.List;

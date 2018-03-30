@@ -1,3 +1,4 @@
+/*
 package com.cw.codetoaction;
 
 import java.util.ArrayList;
@@ -41,4 +42,4 @@ class Configuration {
 	static CertainFighter getCertainFighter() {
 		return new CertainFighter("Denys Melnichenko", 5);
 	}
-}
+}*/

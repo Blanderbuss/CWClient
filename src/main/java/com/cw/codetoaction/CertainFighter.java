@@ -1,4 +1,4 @@
-package com.cw.codetoaction;
+/*package com.cw.codetoaction;
 
 import java.util.ArrayList;
 
@@ -17,3 +17,4 @@ public class CertainFighter extends FighterA {
 	}
 
 }
+*/
