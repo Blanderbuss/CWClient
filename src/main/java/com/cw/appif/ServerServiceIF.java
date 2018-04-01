@@ -8,14 +8,7 @@ import com.cw.models.entities.User;
 
 import java.util.List;
 
-
 public interface ServerServiceIF {
-
-    boolean register(User user) throws UserException;
-
-    boolean authentificate(User user) throws UserException;
-
-    boolean addSet(Set set, User user) throws FighterException;
 
     int readyForFight(int id, String battleFieldType) throws FighterException;
 
