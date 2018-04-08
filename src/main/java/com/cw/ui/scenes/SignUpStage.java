@@ -1,4 +1,4 @@
-package scenes;
+package com.cw.ui.scenes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

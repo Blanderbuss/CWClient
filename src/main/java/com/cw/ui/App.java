@@ -1,13 +1,10 @@
-import collections.StagesCollection;
+package com.cw.ui;
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import scenes.AuthStage;
-import scenes.SignUpStage;
+import com.cw.ui.scenes.AuthStage;
 
 public class App extends Application {
 

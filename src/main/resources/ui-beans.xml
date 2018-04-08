@@ -6,8 +6,8 @@
 
     <context:annotation-config/>
 
-    <bean id="authStage" class="scenes.AuthStage"/>
-    <bean id="signUpStage" class="scenes.SignUpStage"/>
-    <bean id="navigationStage" class="scenes.NavigationStage"/>
+    <bean id="authStage" class="com.cw.ui.scenes.AuthStage"/>
+    <bean id="signUpStage" class="com.cw.ui.scenes.SignUpStage"/>
+    <bean id="navigationStage" class="com.cw.ui.scenes.NavigationStage"/>
 
 </beans>
