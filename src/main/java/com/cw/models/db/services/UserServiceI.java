@@ -15,7 +15,8 @@ public interface UserServiceI {
     boolean updateUser(User user);
 
     boolean deleteUserById(int id);
-    User deleteUser(User user);
+    // returns true if succeeds, false otherwise
+    boolean deleteUser(User user);
 
     void closeConnection();
 

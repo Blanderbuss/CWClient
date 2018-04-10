@@ -2,6 +2,7 @@ package com.cw.ui;
 
 import com.cw.appif.ServerServiceIF;
 import com.cw.models.db.services.ArtefactServiceI;
+import com.cw.models.db.services.SessionServiceI;
 import com.cw.models.db.services.SetServiceI;
 import com.cw.models.db.services.UserServiceI;
 import javafx.application.Application;
@@ -16,6 +17,7 @@ import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 @SpringBootApplication
 public class App extends Application {
 
+    /*
     @Bean
     RmiProxyFactoryBean battleService() {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
@@ -45,6 +47,14 @@ public class App extends Application {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
         rmiProxyFactory.setServiceUrl("rmi://10.0.128.95:1099/ArtefactServiceI");
         rmiProxyFactory.setServiceInterface(ArtefactServiceI.class);
+        return rmiProxyFactory;
+    }*/
+
+    @Bean
+    RmiProxyFactoryBean battleService() {
+        RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
+        rmiProxyFactory.setServiceUrl("rmi://10.0.128.95:1099/SessionServiceI");
+        rmiProxyFactory.setServiceInterface(SessionServiceI.class);
         return rmiProxyFactory;
     }
 
