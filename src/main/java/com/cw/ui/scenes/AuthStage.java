@@ -1,5 +1,7 @@
 package com.cw.ui.scenes;
 
+import com.cw.models.db.services.SessionServiceI;
+import com.cw.models.entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,6 +23,11 @@ public class AuthStage implements BasicStage {
 
     // Holds all needed stages.
     //StagesCollection stagesCollection;
+
+    // Session services.
+    @Autowired
+    SessionServiceI sessionServiceI;
+
 
     // Main stage and scene.
     Stage window;
@@ -111,9 +118,12 @@ public class AuthStage implements BasicStage {
 
     // TODO: handles whole log in process.
     private void handleLogin(){
-        boolean valid = isValid(loginTxt.getText(), passwdTxt.getText());
-        if(valid) window.setScene(navigationStage.getScene());
-        System.out.println("checkind valid");
+        //boolean valid = isValid(loginTxt.getText(), passwdTxt.getText());
+
+        //if(valid) window.setScene(navigationStage.getScene());
+        System.out.println(loginTxt.getText() + passwdTxt.getText());
+
+        sessionServiceI.login(loginTxt.getText(), passwdTxt.getText());
     }
 
     // TODO: checks if login and password are valid.
