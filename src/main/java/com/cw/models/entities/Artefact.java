@@ -3,6 +3,7 @@ package com.cw.models.entities;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 public class Artefact {
 	@Min(0)
@@ -26,13 +27,15 @@ public class Artefact {
     @Min(value=(-500))
     private int manaRegenBoost;
     @NotNull
+    private int staminaRegenBoost;
+    @NotNull
     private int evasionBoost;
     @NotNull
     private int armorBoost;
     @NotNull
     private String skin;
 
-    public Artefact(String name, String type, int hpBoost, int manaBoost, int staminaBoost, int hpRegenBoost, int manaRegenBoost, int evasionBoost, int armorBoost, String skin) {
+    public Artefact(String name, String type, int hpBoost, int manaBoost, int staminaBoost, int hpRegenBoost, int manaRegenBoost, int staminaRegenBoost, int evasionBoost, int armorBoost, String skin) {
         this.name = name;
         this.type = type;
         this.hpBoost = hpBoost;
@@ -40,9 +43,25 @@ public class Artefact {
         this.staminaBoost = staminaBoost;
         this.hpRegenBoost = hpRegenBoost;
         this.manaRegenBoost = manaRegenBoost;
+        this.staminaRegenBoost = staminaRegenBoost;
         this.evasionBoost = evasionBoost;
         this.armorBoost = armorBoost;
         this.skin = skin;
+    }
+
+    public Artefact(Artefact other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.type = other.type;
+        this.hpBoost = other.hpBoost;
+        this.manaBoost = other.manaBoost;
+        this.staminaBoost = other.staminaBoost;
+        this.hpRegenBoost = other.hpRegenBoost;
+        this.manaRegenBoost = other.manaRegenBoost;
+        this.staminaRegenBoost = other.staminaRegenBoost;
+        this.evasionBoost = other.evasionBoost;
+        this.armorBoost = other.armorBoost;
+        this.skin = other.skin;
     }
 
     public void setSkin(String skin) {
@@ -131,5 +150,56 @@ public class Artefact {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getStaminaRegenBoost() {
+        return staminaRegenBoost;
+    }
+
+    public void setStaminaRegenBoost(int staminaRegenBoost) {
+        this.staminaRegenBoost = staminaRegenBoost;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artefact artefact = (Artefact) o;
+        return id == artefact.id &&
+                hpBoost == artefact.hpBoost &&
+                manaBoost == artefact.manaBoost &&
+                staminaBoost == artefact.staminaBoost &&
+                hpRegenBoost == artefact.hpRegenBoost &&
+                manaRegenBoost == artefact.manaRegenBoost &&
+                staminaRegenBoost == artefact.staminaRegenBoost &&
+                evasionBoost == artefact.evasionBoost &&
+                armorBoost == artefact.armorBoost &&
+                Objects.equals(name, artefact.name) &&
+                Objects.equals(type, artefact.type) &&
+                Objects.equals(skin, artefact.skin);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, type, hpBoost, manaBoost, staminaBoost, hpRegenBoost, manaRegenBoost, staminaRegenBoost, evasionBoost, armorBoost, skin);
+    }
+
+    @Override
+    public String toString() {
+        return "Artefact{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", hpBoost=" + hpBoost +
+                ", manaBoost=" + manaBoost +
+                ", staminaBoost=" + staminaBoost +
+                ", hpRegenBoost=" + hpRegenBoost +
+                ", manaRegenBoost=" + manaRegenBoost +
+                ", staminaRegenBoost=" + staminaRegenBoost +
+                ", evasionBoost=" + evasionBoost +
+                ", armorBoost=" + armorBoost +
+                ", skin='" + skin + '\'' +
+                '}';
     }
 }
