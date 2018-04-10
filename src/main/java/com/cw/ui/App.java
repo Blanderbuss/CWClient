@@ -17,6 +17,7 @@ import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 @SpringBootApplication
 public class App extends Application {
 
+    static final String adress = "localhost";
     /*
     @Bean
     RmiProxyFactoryBean battleService() {
@@ -53,7 +54,7 @@ public class App extends Application {
     @Bean
     RmiProxyFactoryBean battleService() {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
-        rmiProxyFactory.setServiceUrl("rmi://10.0.128.95:1099/SessionServiceI");
+        rmiProxyFactory.setServiceUrl("rmi://"+adress+":1099/SessionServiceI");
         rmiProxyFactory.setServiceInterface(SessionServiceI.class);
         return rmiProxyFactory;
     }
