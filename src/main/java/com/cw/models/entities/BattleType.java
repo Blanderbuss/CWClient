@@ -3,9 +3,10 @@ package com.cw.models.entities;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class BattleType {
+public class BattleType implements Serializable {
 
     @NotNull
     @Min(0)

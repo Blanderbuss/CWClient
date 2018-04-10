@@ -2,12 +2,13 @@ package com.cw.models.entities;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Set {
+public class Set implements Serializable{
     //TODO field lvl from table users
     @NotNull
     private int id;

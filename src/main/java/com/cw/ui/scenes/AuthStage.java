@@ -123,10 +123,9 @@ public class AuthStage implements BasicStage {
         //if(valid) window.setScene(navigationStage.getScene());
         System.out.println(emailTxt.getText() + passwdTxt.getText());
 
-        Boolean emailRes = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
+        User user = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
 
-        if(!emailRes) System.out.println("Login foiled!");
-        else System.out.println("Login successful");
+        System.out.println("Login successful: " + user);
     }
 
     // TODO: checks if login and password are valid.

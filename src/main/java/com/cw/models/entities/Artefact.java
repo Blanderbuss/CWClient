@@ -3,9 +3,10 @@ package com.cw.models.entities;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Artefact {
+public class Artefact implements Serializable {
 	@Min(0)
     private int id;
 	@NotNull

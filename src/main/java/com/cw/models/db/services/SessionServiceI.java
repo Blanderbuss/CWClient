@@ -9,40 +9,41 @@ import java.util.List;
 public interface SessionServiceI {
 
     // starts a valid session; initializes user variable
-    // returns true if login was successful, false otherwise
-    boolean login(String email, String pwd);
+    // returns user data if login was successful
+    User login(String email, String pwd);
 
     // finishes session
-    void logout();
+    void logout(User user);
 
     // indicates whether current session is active and valid
-    boolean isLoggedIn();
+    boolean isLoggedIn(User user);
+    boolean isLoggedIn(String email);
 
     // returns a user from which we can get his sets, artefacts and other fields
-    User getUser();
+    User getUser(User user);
 
     // create a user
     // returns true if registration was successful, false otherwise
-    boolean register(String username, String email, String pwd);
+    boolean register(String usernme, String email, String pwd);
 
-    void addNewSet(Set set);
+    void addNewSet(Set set, User user);
 
     // artefact should be present in user backpack (user artifact list)
-    boolean addArtefactFromBackpackToCurrentSet(Artefact artefact);
+    boolean addArtefactFromBackpackToCurrentSet(Artefact artefact, User user);
 
-    void chooseSetAsCurrent(Set set);
+    void chooseSetAsCurrent(Set set, User user);
 
     //TODO add methods to modify and delete user sets
 
     // starts a fight
-    void startFightAgainstBot();
+    void startFightAgainstBot(User user);
 
-    void startFightAgainstUser(User u);
+    void startFightAgainstUser(User user);
 
-    String getMyUserStatus();
+    String getMyUserStatus(User user);
 
     // all users that are online whose status is ready-to-fight
     List<User> getUsersReadyToFight();
 
-    String getFightStatistics();
+    String getFightStatistics(User user);
 }
