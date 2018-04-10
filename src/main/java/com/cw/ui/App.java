@@ -1,32 +1,57 @@
 package com.cw.ui;
 
+import com.cw.appif.ServerServiceIF;
+import com.cw.models.db.services.ArtefactServiceI;
+import com.cw.models.db.services.SetServiceI;
+import com.cw.models.db.services.UserServiceI;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import com.cw.ui.scenes.AuthStage;
+import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
+@SpringBootApplication
 public class App extends Application {
+
+    @Bean
+    RmiProxyFactoryBean battleService() {
+        RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
+        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/ServerServiceIF");
+        rmiProxyFactory.setServiceInterface(ServerServiceIF.class);
+        return rmiProxyFactory;
+    }
+
+    @Bean
+    RmiProxyFactoryBean userService() {
+        RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
+        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/UserServiceI");
+        rmiProxyFactory.setServiceInterface(UserServiceI.class);
+        return rmiProxyFactory;
+    }
+
+    @Bean
+    RmiProxyFactoryBean setService() {
+        RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
+        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/SetServiceI");
+        rmiProxyFactory.setServiceInterface(SetServiceI.class);
+        return rmiProxyFactory;
+    }
+
+    @Bean
+    RmiProxyFactoryBean artefactService() {
+        RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
+        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/ArtefactServiceI");
+        rmiProxyFactory.setServiceInterface(ArtefactServiceI.class);
+        return rmiProxyFactory;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();*/
-
-        //StagesCollection stagesCollection = new StagesCollection(primaryStage);
-        //stagesCollection.setAuthStage(new AuthStage(stagesCollection));
-        //stagesCollection.setSignUpStage(new SignUpStage(stagesCollection));
-        //SignUpStage sg = new SignUpStage(primaryStage);
-        //AuthStage authStage = new AuthStage(primaryStage);
-        //AuthStage authStage = new AuthStage(primaryStage);
-
-        //primaryStage.setScene(stagesCollection.getAuthStage().getScene());
-        //primaryStage.show();
-
-        ApplicationContext context = new ClassPathXmlApplicationContext("ui-beans.xml");
-        AuthStage as = (AuthStage) context.getBean("authStage");
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(App.class);
+        AuthStage as = (AuthStage) applicationContext.getBean(AuthStage.class);
         as.init(primaryStage);
         primaryStage.setScene(as.getScene());
         primaryStage.show();

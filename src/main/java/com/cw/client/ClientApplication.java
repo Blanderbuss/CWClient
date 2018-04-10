@@ -1,3 +1,4 @@
+/*
 package com.cw.client;
 
 import com.cw.appif.ServerServiceIF;
@@ -9,6 +10,7 @@ import com.cw.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
@@ -70,3 +72,4 @@ public class ClientApplication {
         //service.auth(user);
     }
 }
+*/

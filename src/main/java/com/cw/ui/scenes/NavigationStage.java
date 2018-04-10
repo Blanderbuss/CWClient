@@ -7,8 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import support.BasicStage;
 
+@Component
 public class NavigationStage implements BasicStage {
 
     // Main stage and scene.
