@@ -51,9 +51,9 @@ public class AuthStage implements BasicStage {
     // Scene elements.
     Button loginBtn;
     Button signUpBtn;
-    TextField loginTxt;
+    TextField emailTxt;
     TextField passwdTxt;
-    Label loginLbl;
+    Label emailLbl;
     Label passwdLbl;
 
     public AuthStage(){//StagesCollection st){
@@ -67,9 +67,9 @@ public class AuthStage implements BasicStage {
         w = 300;
 
         // Setting other layout elements.
-        loginTxt = new TextField();
+        emailTxt = new TextField();
         passwdTxt = new TextField();
-        loginLbl = new Label("Login:");
+        emailLbl = new Label("Email:");
         passwdLbl = new Label("Password:");
 
         // Setting the layout.
@@ -99,8 +99,8 @@ public class AuthStage implements BasicStage {
         //Scene sg = stagesCollection.getSignUpStage().getScene();
         signUpBtn.setOnAction(e -> window.setScene(signUpStage.getScene()));
 
-        layout.add(loginLbl, 0, 1);
-        layout.add(loginTxt, 1, 1);
+        layout.add(emailLbl, 0, 1);
+        layout.add(emailTxt, 1, 1);
         layout.add(passwdLbl, 0, 2);
         layout.add(passwdTxt, 1, 2);
 
@@ -118,12 +118,15 @@ public class AuthStage implements BasicStage {
 
     // TODO: handles whole log in process.
     private void handleLogin(){
-        //boolean valid = isValid(loginTxt.getText(), passwdTxt.getText());
+        //boolean valid = isValid(emailTxt.getText(), passwdTxt.getText());
 
         //if(valid) window.setScene(navigationStage.getScene());
-        System.out.println(loginTxt.getText() + passwdTxt.getText());
+        System.out.println(emailTxt.getText() + passwdTxt.getText());
 
-        sessionServiceI.login(loginTxt.getText(), passwdTxt.getText());
+        Boolean emailRes = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
+
+        if(!emailRes) System.out.println("Login foiled!");
+        else System.out.println("Login successful");
     }
 
     // TODO: checks if login and password are valid.
