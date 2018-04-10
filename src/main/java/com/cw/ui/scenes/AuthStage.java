@@ -15,6 +15,7 @@ import support.BasicStage;
 /**
  * Created by denysmelnychenko on 3/18/18.
  */
+
 @Component
 public class AuthStage implements BasicStage {
 
@@ -47,15 +48,10 @@ public class AuthStage implements BasicStage {
     TextField passwdTxt;
     Label loginLbl;
     Label passwdLbl;
-    //SignUpStage sg; //= new SignUpStage(window);
-
 
     public AuthStage(){//StagesCollection st){
 
         System.out.println("New auth stage created.");
-
-        //this.stagesCollection = st;
-        //this.window = st.getWindow();
 
         layout = new GridPane();
 

@@ -19,7 +19,7 @@ public class App extends Application {
     @Bean
     RmiProxyFactoryBean battleService() {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
-        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/ServerServiceIF");
+        rmiProxyFactory.setServiceUrl("rmi://10.0.128.95:1099/ServerServiceIF");
         rmiProxyFactory.setServiceInterface(ServerServiceIF.class);
         return rmiProxyFactory;
     }
@@ -27,7 +27,7 @@ public class App extends Application {
     @Bean
     RmiProxyFactoryBean userService() {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
-        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/UserServiceI");
+        rmiProxyFactory.setServiceUrl("rmi://10.0.128.95:1099/UserServiceI");
         rmiProxyFactory.setServiceInterface(UserServiceI.class);
         return rmiProxyFactory;
     }
@@ -35,7 +35,7 @@ public class App extends Application {
     @Bean
     RmiProxyFactoryBean setService() {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
-        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/SetServiceI");
+        rmiProxyFactory.setServiceUrl("rmi://10.0.128.95:1099/SetServiceI");
         rmiProxyFactory.setServiceInterface(SetServiceI.class);
         return rmiProxyFactory;
     }
@@ -43,7 +43,7 @@ public class App extends Application {
     @Bean
     RmiProxyFactoryBean artefactService() {
         RmiProxyFactoryBean rmiProxyFactory = new RmiProxyFactoryBean();
-        rmiProxyFactory.setServiceUrl("rmi://localhost:1099/ArtefactServiceI");
+        rmiProxyFactory.setServiceUrl("rmi://10.0.128.95:1099/ArtefactServiceI");
         rmiProxyFactory.setServiceInterface(ArtefactServiceI.class);
         return rmiProxyFactory;
     }
