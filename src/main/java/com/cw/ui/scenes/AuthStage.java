@@ -2,6 +2,7 @@ package com.cw.ui.scenes;
 
 import com.cw.exceptions.UserNotFoundException;
 import com.cw.models.db.services.SessionServiceI;
+import com.cw.models.entities.Tuple;
 import com.cw.models.entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -126,12 +127,16 @@ public class AuthStage implements BasicStage {
         System.out.println(emailTxt.getText() + passwdTxt.getText());
 
         User user = null;
-        user = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
-
+        String accessToken = null;
+        Tuple<String, User> tuple = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
+        user = tuple.val2;
+        accessToken = tuple.val1;
         System.out.println("Login successful: " + user);
+        System.out.println("Received accessToken: " + accessToken);
         } catch (UserNotFoundException e) {
             //TODO handle exception
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Login failed");
         }
     }
 
