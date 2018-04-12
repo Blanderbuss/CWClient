@@ -3,7 +3,7 @@ package com.cw.ui.scenes;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
-import support.BasicStage;
+import com.cw.ui.support.BasicStage;
 
 @Component
 public class CustomizationStage implements BasicStage{

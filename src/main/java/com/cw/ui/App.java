@@ -1,10 +1,7 @@
 package com.cw.ui;
 
 import com.cw.appif.ServerServiceIF;
-import com.cw.models.db.services.ArtefactServiceI;
 import com.cw.models.db.services.SessionServiceI;
-import com.cw.models.db.services.SetServiceI;
-import com.cw.models.db.services.UserServiceI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;

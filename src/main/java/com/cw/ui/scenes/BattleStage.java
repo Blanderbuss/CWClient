@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import support.BasicStage;
+import com.cw.ui.support.BasicStage;
 
 @Component
 public class BattleStage implements BasicStage {

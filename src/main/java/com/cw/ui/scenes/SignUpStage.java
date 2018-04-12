@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import support.BasicStage;
+import com.cw.ui.support.BasicStage;
 
 /**
  * Created by denysmelnychenko on 3/18/18.
