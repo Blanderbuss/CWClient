@@ -1,5 +1,6 @@
 package com.cw.ui.scenes;
 
+import com.cw.exceptions.UserNotFoundException;
 import com.cw.models.db.services.SessionServiceI;
 import com.cw.models.entities.User;
 import javafx.geometry.Insets;
@@ -118,14 +119,20 @@ public class AuthStage implements BasicStage {
 
     // TODO: handles whole log in process.
     private void handleLogin(){
+        try {
         //boolean valid = isValid(emailTxt.getText(), passwdTxt.getText());
 
         //if(valid) window.setScene(navigationStage.getScene());
         System.out.println(emailTxt.getText() + passwdTxt.getText());
 
-        User user = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
+        User user = null;
+        user = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
 
         System.out.println("Login successful: " + user);
+        } catch (UserNotFoundException e) {
+            //TODO handle exception
+            e.printStackTrace();
+        }
     }
 
     // TODO: checks if login and password are valid.
