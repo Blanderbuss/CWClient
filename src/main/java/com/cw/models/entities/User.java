@@ -28,8 +28,6 @@ public class User implements Serializable {
     @Max(value = 80)
     private int lvl;
 
-    private Set currentSet; // TODO initialize it properly in every constructor! verify if it is linked to the database
-
     private List<Set> sets = new LinkedList<>();
 
     private List<Artefact> userArtefacts = new LinkedList<>();
@@ -121,12 +119,6 @@ public class User implements Serializable {
         return sets;
     }
 
-    public List<Set> getSetsExceptCurrent() {
-        return sets.stream()
-                .filter(s -> !s.getName().equals(currentSet.getName()))
-                .collect(Collectors.toList());
-    }
-
     public void setSets(List<Set> sets) {
         this.sets = sets;
     }
@@ -137,14 +129,6 @@ public class User implements Serializable {
 
     public void setUserArtefacts(List<Artefact> userArtefacts) {
         this.userArtefacts = userArtefacts;
-    }
-
-    public Set getCurrentSet() {
-        return currentSet;
-    }
-
-    public void setCurrentSet(Set currentSet) {
-        this.currentSet = currentSet;
     }
 
     @Override
