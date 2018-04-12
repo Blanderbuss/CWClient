@@ -1,7 +1,6 @@
 package com.cw.appif;
 
 import com.cw.exceptions.FighterException;
-import com.cw.exceptions.UserException;
 import com.cw.models.entities.Artefact;
 import com.cw.models.entities.Set;
 import com.cw.models.entities.User;
