@@ -34,6 +34,9 @@ public class NavigationStage implements BasicStage {
     // Current user.
     User currentUser;
 
+    // Current user access token.
+    String accessToken;
+
     // Scene size.
     private int h;
     private int w;
@@ -84,7 +87,7 @@ public class NavigationStage implements BasicStage {
         // Setting the info button;
         cstmBtn = new Button("Customize");
         cstmBtn.setOnAction(e -> {
-            customizationStage.updateUser(currentUser);
+            customizationStage.updateUser(currentUser, accessToken);
             window.setScene(customizationStage.getScene());
         });
         cstmBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -129,12 +132,18 @@ public class NavigationStage implements BasicStage {
         this.currentUser = currentUser;
     }
 
+    public void setAccessToken(String accessToken){
+        this.accessToken = accessToken;
+    }
+
     public void updateName(String name){
         nameLbl.setText(name);
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user, String accessToken){
+
         setCurrentUser(user);
+        setAccessToken(accessToken);
         updateName(user.getUsername());
     }
 }

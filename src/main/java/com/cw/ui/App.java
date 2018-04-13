@@ -69,7 +69,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
 
-        CustomizationStage cs = new CustomizationStage();
+        //CustomizationStage cs = new CustomizationStage();
         launch(args);
     }
 }

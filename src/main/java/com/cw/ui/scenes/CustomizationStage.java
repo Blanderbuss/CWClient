@@ -1,5 +1,7 @@
 package com.cw.ui.scenes;
 
+import com.cw.models.db.services.SessionServiceI;
+import com.cw.models.entities.Set;
 import com.cw.models.entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.cw.ui.support.BasicStage;
 
+import java.util.List;
+
 @Component
 public class CustomizationStage implements BasicStage{
 
@@ -18,6 +22,13 @@ public class CustomizationStage implements BasicStage{
 //            досві
 //    мій нік
 //    створити набір
+
+    // Session services.
+    @Autowired
+    SessionServiceI sessionServiceI;
+
+    // Acces token of current user.
+    String accessToken;
 
     // Main stage and scene.
     Stage window;
@@ -33,10 +44,7 @@ public class CustomizationStage implements BasicStage{
     GridPane layout;
 
     // Scene elements.
-    ListView setsList;
-    TableColumn nameColumn;
-    TableColumn levelColumn;
-    TableColumn experienceColumn;
+    ListView setList;
     Label levelLbl;
     Label experienceLbl;
     Label nameLbl;
@@ -53,16 +61,25 @@ public class CustomizationStage implements BasicStage{
         h = 400;
         w = 400;
 
-        setsList = new ListView();
+        // Setting up sets lost.
+        setList = new ListView();
+        //setsTable.setEditable(true);
+
         levelLbl = new Label("");
         experienceLbl = new Label("");
         nameLbl = new Label("");
 
-        nameColumn = new TableColumn("Username");
-        levelColumn = new TableColumn("Level");
-        experienceColumn = new TableColumn("Experience");
+        // Setting table colums.
+//        setNameColumn = new TableColumn("Set");
+//        setNameColumn.setResizable(false);
+//        setNameColumn.prefWidthProperty().bind(setsTable.widthProperty().multiply(0.8));
+//        setDeleteColumn = new TableColumn("Delete");
+//        setDeleteColumn.setResizable(false);
+//        setDeleteColumn.prefWidthProperty().bind(setsTable.widthProperty().multiply(0.2));
 
-        setsList.getItems().addAll("AAA");
+//        setsTable.getColumns().addAll(setNameColumn, setDeleteColumn);
+//        setsTable.getItems().add(1);
+//        setsTable.getItems().add(2);
 
         setUpLayout();
     }
@@ -76,7 +93,9 @@ public class CustomizationStage implements BasicStage{
         backBtn = new Button("Back");
         backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
 
-        layout.add(setsList, 0, 0);
+
+
+        layout.add(setList, 0, 0);
 //        layout.add(levelLbl, 0, 1);
 //        layout.add(experienceLbl, 0, 2);
         layout.add(backBtn, 0, 3);
@@ -103,11 +122,19 @@ public class CustomizationStage implements BasicStage{
         this.currentUser = currentUser;
     }
 
-    public void updateUser(User user){
+    public void setUserAccessToken(String accessToken){
+        this.accessToken = accessToken;
+    }
+
+    public void updateUser(User user, String accessToken){
         setCurrentUser(user);
-        nameLbl.setText(user.getUsername());
-        levelLbl.setText("Your level is " + user.getLvl());
-        experienceLbl.setText("Your experience is " + user.getExperience());
+        setUserAccessToken(accessToken);
+
+        List<Set> sets = currentUser.getSets(); //sessionServiceI.getAllSetsOfMyUser(accessToken, currentUser);
+
+        for(Set set : sets){
+            setList.getItems().add(set.getName());
+        }
 
         //updateName(user.getUsername());
     }

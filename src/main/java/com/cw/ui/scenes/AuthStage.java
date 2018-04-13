@@ -132,7 +132,7 @@ public class AuthStage implements BasicStage {
             System.out.println("Login successful: " + user);
             System.out.println("Received accessToken: " + accessToken);
 
-            navigationStage.updateUser(user);
+            navigationStage.updateUser(user, accessToken);
             window.setScene(navigationStage.getScene());
 
         } catch (UserNotFoundException e) {
