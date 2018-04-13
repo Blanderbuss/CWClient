@@ -34,9 +34,6 @@ public interface SessionServiceI {
     // returns true if registration was successful, false otherwise
     boolean register(String username, String email, String pwd);
 
-    // returns all sets of logined user
-    List<Set> getAllSetsOfMyUser(String accessToken, User user);
-
     // accessToken - token of current user's session
     void addNewSetToMyUser(Set set, String accessToken);
 
