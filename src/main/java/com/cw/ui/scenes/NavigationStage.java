@@ -1,9 +1,11 @@
 package com.cw.ui.scenes;
 
+import com.cw.models.entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,16 @@ public class NavigationStage implements BasicStage {
     @Autowired
     AuthStage authStage;
 
-    // Statistics stage.
+    // Customization stage.
+    @Autowired
+    CustomizationStage customizationStage;
+
+    // Battle stage.
     @Autowired
     BattleStage battleStage;
+
+    // Current user.
+    User currentUser;
 
     // Scene size.
     private int h;
@@ -33,8 +42,9 @@ public class NavigationStage implements BasicStage {
     VBox layout;
 
     // Scene elements.
+    Label nameLbl;
     Button cstmBtn;
-    Button infoBtn;
+    Button battleBtn;
     Button logoutBtn;
 
     public NavigationStage(){
@@ -65,22 +75,28 @@ public class NavigationStage implements BasicStage {
         // Primary stage initialization.
         window = stage;
 
+        // Customization scene initialization.
+        customizationStage.init(stage);
+
         // Battle stage initialization.
         battleStage.init(stage);
 
         // Setting the info button;
         cstmBtn = new Button("Customize");
-        cstmBtn.setOnAction(e -> window.setScene(authStage.getScene()));
+        cstmBtn.setOnAction(e -> window.setScene(customizationStage.getScene()));
         cstmBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // Setting the info button;
-        infoBtn = new Button("Stats");
-        infoBtn.setOnAction(e -> window.setScene(authStage.getScene()));
-        infoBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        battleBtn = new Button("Enter Battle");
+        battleBtn.setOnAction(e -> window.setScene(battleStage.getScene()));
+        battleBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // Setting the login button;
         logoutBtn = new Button("Logout");
-        logoutBtn.setOnAction(e -> window.setScene(authStage.getScene()));
+        logoutBtn.setOnAction(e -> {
+            currentUser = null;
+            window.setScene(authStage.getScene());
+        });
         logoutBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
 //        ListView listView = new ListView();
@@ -88,8 +104,11 @@ public class NavigationStage implements BasicStage {
 //        listView.getItems().add(infoBtn);
 //        listView.getItems().add(logoutBtn);
 
+        nameLbl = new Label("");
+
+        layout.getChildren().add(nameLbl);
         layout.getChildren().add(cstmBtn);
-        layout.getChildren().add(infoBtn);
+        layout.getChildren().add(battleBtn);
         layout.getChildren().add(logoutBtn);
 
         //layout.getChildren().add(listView);
@@ -101,5 +120,18 @@ public class NavigationStage implements BasicStage {
     @Override
     public Scene getScene() {
         return scene;
+    }
+
+    public void setCurrentUser(User currentUser){
+        this.currentUser = currentUser;
+    }
+
+    public void updateName(String name){
+        nameLbl.setText(name);
+    }
+
+    public void updateUser(User user){
+        setCurrentUser(user);
+        updateName(user.getUsername());
     }
 }

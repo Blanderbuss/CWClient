@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -54,7 +55,7 @@ public class AuthStage implements BasicStage {
     Button loginBtn;
     Button signUpBtn;
     TextField emailTxt;
-    TextField passwdTxt;
+    PasswordField passwdTxt;
     Label emailLbl;
     Label passwdLbl;
 
@@ -70,7 +71,7 @@ public class AuthStage implements BasicStage {
 
         // Setting other layout elements.
         emailTxt = new TextField();
-        passwdTxt = new TextField();
+        passwdTxt = new PasswordField();
         emailLbl = new Label("Email:");
         passwdLbl = new Label("Password:");
 
@@ -97,8 +98,6 @@ public class AuthStage implements BasicStage {
 
         // Setting the sign up button;
         signUpBtn = new Button("Sign Up");
-        //signUpBtn.setOnAction(e -> window.setScene(sg.getScene()));
-        //Scene sg = stagesCollection.getSignUpStage().getScene();
         signUpBtn.setOnAction(e -> window.setScene(signUpStage.getScene()));
 
         layout.add(emailLbl, 0, 1);
@@ -121,18 +120,21 @@ public class AuthStage implements BasicStage {
     // TODO: handles whole log in process.
     private void handleLogin(){
         try {
-        //boolean valid = isValid(emailTxt.getText(), passwdTxt.getText());
 
-        //if(valid) window.setScene(navigationStage.getScene());
-        System.out.println(emailTxt.getText() + passwdTxt.getText());
+            System.out.println(emailTxt.getText() + passwdTxt.getText());
 
-        User user = null;
-        String accessToken = null;
-        Tuple<String, User> tuple = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
-        user = tuple.val2;
-        accessToken = tuple.val1;
-        System.out.println("Login successful: " + user);
-        System.out.println("Received accessToken: " + accessToken);
+            User user = null;
+            String accessToken = null;
+            Tuple<String, User> tuple = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
+            user = tuple.val2;
+            accessToken = tuple.val1;
+
+            System.out.println("Login successful: " + user);
+            System.out.println("Received accessToken: " + accessToken);
+
+            navigationStage.updateUser(user);
+            window.setScene(navigationStage.getScene());
+
         } catch (UserNotFoundException e) {
             //TODO handle exception
             //e.printStackTrace();

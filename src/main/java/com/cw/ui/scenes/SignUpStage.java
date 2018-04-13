@@ -63,17 +63,13 @@ public class SignUpStage implements BasicStage {
         loginLbl = new Label("Login:");
         passwdLbl = new Label("Password:");
 
-        // Setting the layout.
-        layout = new GridPane();
-        layout.setAlignment(Pos.CENTER);
-        layout.setHgap(10);
-        layout.setVgap(10);
-        layout.setPadding(new Insets(25, 25, 25, 25));
+        setUpLayout();
 
     }
 
     @Override
     public void init(Stage stage){
+
         window = stage;
 
         // Setting go back to logging in scene button.
@@ -111,6 +107,16 @@ public class SignUpStage implements BasicStage {
 
     private boolean handleSignUp(){
         return true;
+    }
+
+    private void setUpLayout(){
+
+        // Setting the layout.
+        layout = new GridPane();
+        layout.setAlignment(Pos.CENTER);
+        layout.setHgap(10);
+        layout.setVgap(10);
+        layout.setPadding(new Insets(25, 25, 25, 25));
     }
 
 }
