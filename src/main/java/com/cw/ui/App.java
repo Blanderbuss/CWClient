@@ -2,6 +2,7 @@ package com.cw.ui;
 
 import com.cw.appif.ServerServiceIF;
 import com.cw.models.db.services.SessionServiceI;
+import com.cw.ui.scenes.CustomizationStage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
@@ -67,6 +68,8 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
+
+        CustomizationStage cs = new CustomizationStage();
         launch(args);
     }
 }

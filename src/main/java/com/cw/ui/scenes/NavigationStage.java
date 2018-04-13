@@ -83,7 +83,10 @@ public class NavigationStage implements BasicStage {
 
         // Setting the info button;
         cstmBtn = new Button("Customize");
-        cstmBtn.setOnAction(e -> window.setScene(customizationStage.getScene()));
+        cstmBtn.setOnAction(e -> {
+            customizationStage.updateUser(currentUser);
+            window.setScene(customizationStage.getScene());
+        });
         cstmBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // Setting the info button;
