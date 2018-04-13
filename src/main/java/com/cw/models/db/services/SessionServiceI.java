@@ -1,5 +1,6 @@
 package com.cw.models.db.services;
 
+import com.cw.exceptions.FighterException;
 import com.cw.exceptions.UserNotFoundException;
 import com.cw.models.entities.Artefact;
 import com.cw.models.entities.Set;
@@ -33,6 +34,9 @@ public interface SessionServiceI {
     // returns true if registration was successful, false otherwise
     boolean register(String username, String email, String pwd);
 
+    // returns all sets of logined user
+    List<Set> getAllSetsOfMyUser(String accessToken);
+
     // accessToken - token of current user's session
     void addNewSetToMyUser(Set set, String accessToken);
 
@@ -43,12 +47,12 @@ public interface SessionServiceI {
 
     // starts a fight
     // accessToken - token of current user's session
-    void startFightAgainstBot(Set set, String accessToken);
+    void startFightAgainstBot(Set set, String accessToken, String stringBattleFieldType);
 
     // user - the one we want to fight against
     // accessToken - token of current user's session
     // set - set chosen by current user to use in fight
-    void startFightAgainstUser(User user, Set set, String accessToken);
+    void startFightAgainstUsers(Set set, String accessToken, String stringBattleFieldType) throws FighterException;
 
     String getMyUserStatus(String accessToken);
 
