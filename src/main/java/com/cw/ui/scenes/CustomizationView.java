@@ -49,10 +49,7 @@ public class CustomizationView implements BasicStage {
     }
 
     @Override
-    public void init(Stage stage) {
-
-
-    }
+    public void init(Stage stage) { }
 
     @Override
     public Scene getScene() {
