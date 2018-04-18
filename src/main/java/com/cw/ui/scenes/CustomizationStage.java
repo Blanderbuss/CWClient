@@ -3,10 +3,12 @@ package com.cw.ui.scenes;
 import com.cw.models.db.services.SessionServiceI;
 import com.cw.models.entities.Set;
 import com.cw.models.entities.User;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,19 @@ public class CustomizationStage implements BasicStage{
 
         // Setting up sets lost.
         setList = new ListView();
+
+        setList.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+            @Override
+            public void handle(MouseEvent arg0) {
+
+                //label.setText("Selected: " +
+                //        listView.getSelectionModel().getSelectedItems());
+                
+                System.out.println(setList.getSelectionModel().getSelectedItems());
+            }
+
+        });
         //setsTable.setEditable(true);
 
         levelLbl = new Label("");
