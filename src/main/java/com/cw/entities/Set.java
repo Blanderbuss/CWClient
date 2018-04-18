@@ -1,4 +1,4 @@
-package com.cw.models.entities;
+package com.cw.entities;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Set implements Serializable{
+public class Set implements Serializable {
     //TODO field lvl from table users
     @NotNull
     private int id;

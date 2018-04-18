@@ -1,6 +1,6 @@
 package com.cw.ui.scenes;
 
-import com.cw.models.entities.User;
+import com.cw.entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

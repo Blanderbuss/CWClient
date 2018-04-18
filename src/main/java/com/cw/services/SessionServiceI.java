@@ -1,11 +1,11 @@
-package com.cw.models.db.services;
+package com.cw.services;
 
+import com.cw.entities.Artefact;
+import com.cw.entities.Set;
+import com.cw.entities.Tuple;
+import com.cw.entities.User;
 import com.cw.exceptions.FighterException;
 import com.cw.exceptions.UserNotFoundException;
-import com.cw.models.entities.Artefact;
-import com.cw.models.entities.Set;
-import com.cw.models.entities.Tuple;
-import com.cw.models.entities.User;
 
 import java.util.List;
 

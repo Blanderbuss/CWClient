@@ -1,9 +1,8 @@
-package com.cw.models;
+package com.cw.BattleLogic;
 
-
-import com.cw.appif.ActionExecutor;
-import com.cw.models.entities.Artefact;
-import com.cw.models.entities.Set;
+import com.cw.entities.Artefact;
+import com.cw.entities.Set;
+import com.cw.factory.ActionExecutor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

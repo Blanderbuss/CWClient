@@ -1,4 +1,4 @@
-package com.cw.models.entities;
+package com.cw.entities;
 
 import java.io.Serializable;
 

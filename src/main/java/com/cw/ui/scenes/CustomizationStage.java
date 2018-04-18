@@ -1,8 +1,8 @@
 package com.cw.ui.scenes;
 
-import com.cw.models.db.services.SessionServiceI;
-import com.cw.models.entities.Set;
-import com.cw.models.entities.User;
+import com.cw.services.SessionServiceI;
+import com.cw.entities.Set;
+import com.cw.entities.User;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

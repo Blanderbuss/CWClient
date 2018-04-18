@@ -1,10 +1,10 @@
 package com.cw.client;
 
 import com.cw.exceptions.UserNotFoundException;
-import com.cw.models.db.services.SessionServiceI;
-import com.cw.models.entities.Artefact;
-import com.cw.models.entities.Set;
-import com.cw.models.entities.User;
+import com.cw.services.SessionServiceI;
+import com.cw.entities.Artefact;
+import com.cw.entities.Set;
+import com.cw.entities.User;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

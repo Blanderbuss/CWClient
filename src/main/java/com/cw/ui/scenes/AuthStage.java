@@ -1,9 +1,9 @@
 package com.cw.ui.scenes;
 
 import com.cw.exceptions.UserNotFoundException;
-import com.cw.models.db.services.SessionServiceI;
-import com.cw.models.entities.Tuple;
-import com.cw.models.entities.User;
+import com.cw.services.SessionServiceI;
+import com.cw.entities.Tuple;
+import com.cw.entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

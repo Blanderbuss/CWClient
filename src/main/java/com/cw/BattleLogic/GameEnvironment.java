@@ -1,4 +1,4 @@
-package com.cw.models;
+package com.cw.BattleLogic;
 
 import java.util.Date;
 import java.util.List;
