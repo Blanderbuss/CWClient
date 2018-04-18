@@ -30,13 +30,15 @@ public class Artefact implements Serializable {
     @NotNull
     private int staminaRegenBoost;
     @NotNull
+    private int attackBoost;
+    @NotNull
     private int evasionBoost;
     @NotNull
     private int armorBoost;
     @NotNull
     private String skin;
 
-    public Artefact(String name, String type, int hpBoost, int manaBoost, int staminaBoost, int hpRegenBoost, int manaRegenBoost, int staminaRegenBoost, int evasionBoost, int armorBoost, String skin) {
+    public Artefact(String name, String type, int hpBoost, int manaBoost, int staminaBoost, int hpRegenBoost, int manaRegenBoost, int staminaRegenBoost, int attackBoost, int evasionBoost, int armorBoost, String skin) {
         this.name = name;
         this.type = type;
         this.hpBoost = hpBoost;
@@ -45,6 +47,7 @@ public class Artefact implements Serializable {
         this.hpRegenBoost = hpRegenBoost;
         this.manaRegenBoost = manaRegenBoost;
         this.staminaRegenBoost = staminaRegenBoost;
+        this.attackBoost = attackBoost;
         this.evasionBoost = evasionBoost;
         this.armorBoost = armorBoost;
         this.skin = skin;
@@ -60,6 +63,7 @@ public class Artefact implements Serializable {
         this.hpRegenBoost = other.hpRegenBoost;
         this.manaRegenBoost = other.manaRegenBoost;
         this.staminaRegenBoost = other.staminaRegenBoost;
+        this.attackBoost = other.attackBoost;
         this.evasionBoost = other.evasionBoost;
         this.armorBoost = other.armorBoost;
         this.skin = other.skin;
@@ -89,6 +93,10 @@ public class Artefact implements Serializable {
         this.manaRegenBoost = manaRegenBoost;
     }
 
+    public void setAttackBoost(int attackBoost) {
+        this.attackBoost = attackBoost;
+    }
+
     public void setEvasionBoost(int evasionBoost) {
         this.evasionBoost = evasionBoost;
     }
@@ -115,6 +123,10 @@ public class Artefact implements Serializable {
 
     public int getManaRegenBoost() {
         return manaRegenBoost;
+    }
+
+    public int getAttackBoost() {
+        return attackBoost;
     }
 
     public int getEvasionBoost() {
@@ -174,6 +186,7 @@ public class Artefact implements Serializable {
                 manaRegenBoost == artefact.manaRegenBoost &&
                 staminaRegenBoost == artefact.staminaRegenBoost &&
                 evasionBoost == artefact.evasionBoost &&
+                attackBoost == artefact.attackBoost &&
                 armorBoost == artefact.armorBoost &&
                 Objects.equals(name, artefact.name) &&
                 Objects.equals(type, artefact.type) &&
@@ -183,7 +196,7 @@ public class Artefact implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, type, hpBoost, manaBoost, staminaBoost, hpRegenBoost, manaRegenBoost, staminaRegenBoost, evasionBoost, armorBoost, skin);
+        return Objects.hash(id, name, type, hpBoost, manaBoost, staminaBoost, hpRegenBoost, manaRegenBoost, staminaRegenBoost,attackBoost, evasionBoost, armorBoost, skin);
     }
 
     @Override
@@ -198,6 +211,7 @@ public class Artefact implements Serializable {
                 ", hpRegenBoost=" + hpRegenBoost +
                 ", manaRegenBoost=" + manaRegenBoost +
                 ", staminaRegenBoost=" + staminaRegenBoost +
+                ", attackBoost=" + attackBoost +
                 ", evasionBoost=" + evasionBoost +
                 ", armorBoost=" + armorBoost +
                 ", skin='" + skin + '\'' +
