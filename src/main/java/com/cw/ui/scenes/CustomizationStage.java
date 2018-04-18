@@ -71,9 +71,8 @@ public class CustomizationStage implements BasicStage{
             @Override
             public void handle(MouseEvent arg0) {
 
-                //label.setText("Selected: " +
-                //        listView.getSelectionModel().getSelectedItems());
-                
+                String selectedSet = String.valueOf(setList.getSelectionModel().getSelectedItems());
+                openCustomizationView(selectedSet);
                 System.out.println(setList.getSelectionModel().getSelectedItems());
             }
 
@@ -152,5 +151,29 @@ public class CustomizationStage implements BasicStage{
         }
 
         //updateName(user.getUsername());
+    }
+
+    public void openCustomizationView(String setName){
+        Stage window = new Stage();
+        window.setTitle(setName);
+        window.setMinWidth(250);
+        CustomizationView customizationView = null;
+
+        List<Set> sets = currentUser.getSets(); //sessionServiceI.getAllSetsOfMyUser(accessToken, currentUser);
+
+        for(Set set : sets){
+            if(("[" + set.getName() + "]").equals(setName)){
+                customizationView = new CustomizationView(set);
+                break;
+            }
+        }
+
+        if(customizationView == null){
+            System.out.println("No set found");
+            return;
+        }
+
+        window.setScene(customizationView.getScene());
+        window.show();
     }
 }
