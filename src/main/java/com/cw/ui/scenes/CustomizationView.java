@@ -7,10 +7,7 @@ import com.cw.ui.support.BasicStage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -37,9 +34,13 @@ public class CustomizationView implements BasicStage {
     // Declaaring layout elements.
     TextArea codeArea;
     ComboBox<Artefact> headArtsList;
+    Label headArtLabel;
     ComboBox<Artefact> bodyArtsList;
+    Label bodyArtLabel;
     ComboBox<Artefact> armsArtsList;
+    Label armsArtLabel;
     ComboBox<Artefact> legsArtsList;
+    Label legsArtLabel;
     Button saveButton;
 
     public CustomizationView(Set set){
@@ -49,7 +50,14 @@ public class CustomizationView implements BasicStage {
 
         // Setting up layout elements.
         codeArea = new TextArea();
+        headArtLabel = new Label("Head artefacts:");
         headArtsList = new ComboBox<Artefact>();
+        bodyArtLabel = new Label("Body artefacts:");
+        bodyArtsList = new ComboBox<Artefact>();
+        armsArtLabel = new Label("Arms artefacts:");
+        armsArtsList = new ComboBox<Artefact>();
+        legsArtLabel = new Label("Legs artefacts:");
+        legsArtsList = new ComboBox<Artefact>();
 
         // Seting up save changes button.
         saveButton = new Button("Save changes");
@@ -61,11 +69,18 @@ public class CustomizationView implements BasicStage {
         layout.setSpacing(15);
 
         // Setting default window size.
-        h = 300;
-        w = 300;
+        h = 500;
+        w = 800;
 
         layout.getChildren().add(codeArea);
+        layout.getChildren().add(headArtLabel);
         layout.getChildren().add(headArtsList);
+        layout.getChildren().add(bodyArtLabel);
+        layout.getChildren().add(bodyArtsList);
+        layout.getChildren().add(armsArtLabel);
+        layout.getChildren().add(armsArtsList);
+        layout.getChildren().add(legsArtLabel);
+        layout.getChildren().add(legsArtsList);
         layout.getChildren().add(saveButton);
         layout.setPrefWidth(Control.USE_COMPUTED_SIZE);
         scene = new Scene(layout, h, w);
