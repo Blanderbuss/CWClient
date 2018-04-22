@@ -37,14 +37,23 @@ public class CustomizationView implements BasicStage {
     // Declaaring layout elements.
     TextArea codeArea;
     ComboBox<Artefact> headArtsList;
+    ComboBox<Artefact> bodyArtsList;
+    ComboBox<Artefact> armsArtsList;
+    ComboBox<Artefact> legsArtsList;
+    Button saveButton;
 
     public CustomizationView(Set set){
         this.set = set;
 
         layout = new VBox();
 
+        // Setting up layout elements.
         codeArea = new TextArea();
         headArtsList = new ComboBox<Artefact>();
+
+        // Seting up save changes button.
+        saveButton = new Button("Save changes");
+        saveButton.setOnAction(e -> saveChanges());
 
         // Setting the layout.
         layout.setAlignment(Pos.CENTER);
@@ -57,7 +66,7 @@ public class CustomizationView implements BasicStage {
 
         layout.getChildren().add(codeArea);
         layout.getChildren().add(headArtsList);
-        layout.getChildren().add(new Button("Touch me please"));
+        layout.getChildren().add(saveButton);
         layout.setPrefWidth(Control.USE_COMPUTED_SIZE);
         scene = new Scene(layout, h, w);
 
@@ -88,7 +97,30 @@ public class CustomizationView implements BasicStage {
         codeArea.setPrefWidth(Control.USE_COMPUTED_SIZE);
         codeArea.setPrefHeight(Control.USE_COMPUTED_SIZE);
 
-        headArtsList.setConverter(new StringConverter<Artefact>() {
+        // Setting up string converter to store artifacts while displaying only their name.
+        setStringConverter(headArtsList);
+        setStringConverter(bodyArtsList);
+        setStringConverter(armsArtsList);
+        setStringConverter(legsArtsList);
+
+        // Setting up lists of artefacts, that are availiable to user.
+        for(Artefact art : user.getUserArtefacts()){
+            if(art.getType().equals("head"))
+                headArtsList.getItems().add(art);
+            if(art.getType().equals("body"))
+                bodyArtsList.getItems().add(art);
+            if(art.getType().equals("arms"))
+                armsArtsList.getItems().add(art);
+            if(art.getType().equals("legs"))
+                legsArtsList.getItems().add(art);
+        }
+
+
+
+    }
+
+    private void setStringConverter(ComboBox<Artefact> art){
+        art.setConverter(new StringConverter<Artefact>() {
 
             @Override
             public String toString(Artefact art) {
@@ -97,15 +129,14 @@ public class CustomizationView implements BasicStage {
 
             @Override
             public Artefact fromString(String name) {
-                return headArtsList.getItems().stream().filter(ap ->
+                return art.getItems().stream().filter(ap ->
                         ap.getName().equals(name)).findFirst().orElse(null);
             }
         });
+    }
 
-
-        for(Artefact art : set.getArtefacts()){
-            headArtsList.getItems().add(art);
-        }
+    // Queries server to update set data in data base.
+    private void saveChanges(){
 
     }
 }
