@@ -33,18 +33,17 @@ public class FighterFactory {
 			"import com.cw.factory.ActionExecutor;\n" +
 			"\n" +
 			"public class %s implements ActionExecutor {\n" +
-			"    public void doAction(Fighter self, GameEnvironment env) {\n" +
+			"    public void selectAction(Fighter self, GameEnvironment env) {\n" +
 			"        %s\n" +
 			"    }\n" +
 			"}\n";
 
 	private static final String templateContent = "" +
-			"import com.cw.codetoaction.CertainFighter;\r\n" +
-			"import com.cw.codetoaction.GameEnvironment;\r\n" +
-			"import com.cw.codetoaction.ActionExecutor;\r\n" +
-			"import com.cw.BattleLogic.Fighter;\r\n" +
-			"public class %s extends ActionExecutor {\r\n" +
-			"    public void execute(CertainFighter self, GameEnvironment env) {\r\n" + 
+			"import com.cw.BattleLogic.Fighter;\n" +
+			"import com.cw.BattleLogic.GameEnvironment;\n" +
+			"import com.cw.entities.Tuple;\n" +
+			"import org.springframework.stereotype.Service;\n" +
+			"    public Tuple<FighterI.Action,FighterI> selectAction(FighterI self, GameEnvironment env) {\r\n" +
 			"        %s\r\n" + 
 			"    }\r\n" + 
 			"}\r\n";

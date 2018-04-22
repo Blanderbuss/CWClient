@@ -30,6 +30,9 @@ public class App extends Application {
         as.init(primaryStage);
         primaryStage.setScene(as.getScene());
         primaryStage.show();
+        /*SessionServiceI testSession = applicationContext.getBean(SessionServiceI.class);
+        String res = testSession.test();
+        System.out.println(res);*/
     }
 
 
