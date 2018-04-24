@@ -40,6 +40,8 @@ public interface SessionServiceI {
     // accessToken - token of current user's session
     void addNewSetToMyUser(Set set, String accessToken);
 
+    boolean updateUserSet(Set set, String accessToken);
+
     // precondition: artefact should be present in user backpack (user artifact list) and currentSet is already in database
     boolean addArtefactFromBackpackToSet(Artefact artefact, Set set, String accessToken);
 

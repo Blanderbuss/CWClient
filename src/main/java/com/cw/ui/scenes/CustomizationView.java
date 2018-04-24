@@ -3,6 +3,7 @@ package com.cw.ui.scenes;
 import com.cw.entities.Artefact;
 import com.cw.entities.Set;
 import com.cw.entities.User;
+import com.cw.services.SessionServiceI;
 import com.cw.ui.support.BasicStage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,12 +12,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomizationView implements BasicStage {
 
     Scene scene;
+
+    // Session services.
+    @Autowired
+    SessionServiceI sessionServiceI;
 
     // Declaring the layout and its parameters.
     VBox layout;
@@ -168,6 +175,14 @@ public class CustomizationView implements BasicStage {
 
     // Queries server to update set data in data base.
     private void saveChanges(){
+        List<Artefact> newArtefacts = new ArrayList<Artefact>();
 
+        newArtefacts.add(headArtsList.getSelectionModel().getSelectedItem());
+        newArtefacts.add(bodyArtsList.getSelectionModel().getSelectedItem());
+        newArtefacts.add(armsArtsList.getSelectionModel().getSelectedItem());
+        newArtefacts.add(legsArtsList.getSelectionModel().getSelectedItem());
+
+        Set newSet = new Set(set.getName(), codeArea.getText(), currentUser, newArtefacts);
+        sessionServiceI.updateUserSet(newSet, accessToken);
     }
 }
