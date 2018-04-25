@@ -65,6 +65,7 @@ public class BattleStage implements BasicStage {
         backBtn = new Button("Back");
         backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
 
+        layout.add(setList, 0, 1);
         layout.add(backBtn, 0, 0);
 
         scene = new Scene(layout, h, w);
@@ -86,8 +87,8 @@ public class BattleStage implements BasicStage {
         layout.setPadding(new Insets(25, 25, 25, 25));
     }
 
-    private void setStringConverter(ComboBox<Set> set){
-        set.setConverter(new StringConverter<Set>() {
+    private void setStringConverter(ComboBox<Set> setList){
+        setList.setConverter(new StringConverter<Set>() {
 
             @Override
             public String toString(Set set) {
@@ -96,7 +97,7 @@ public class BattleStage implements BasicStage {
 
             @Override
             public Set fromString(String name) {
-                return set.getItems().stream().filter(ap ->
+                return setList.getItems().stream().filter(ap ->
                         ap.getName().equals(name)).findFirst().orElse(null);
             }
         });
@@ -116,13 +117,14 @@ public class BattleStage implements BasicStage {
 
         List<Set> sets = currentUser.getSets();
 
+        setStringConverter(setList);
 
-
-        setList.getItems().clear();
-
-        for(Set set : sets){
-            setList.getItems().add(set.getName());
+        // Setting up lists of sets, that are availiable to user.
+        for(Set set : user.getSets()){
+            setList.getItems().add(set);
         }
+
+        setList.getSelectionModel().select(0);
     }
 
     public void updateSetList(){
