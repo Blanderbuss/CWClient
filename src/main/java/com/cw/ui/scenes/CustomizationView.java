@@ -13,16 +13,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class CustomizationView implements BasicStage {
 
     Scene scene;
 
     // Session services.
-    @Autowired
     SessionServiceI sessionServiceI;
 
     // Declaring the layout and its parameters.
@@ -50,8 +51,9 @@ public class CustomizationView implements BasicStage {
     Label legsArtLabel;
     Button saveButton;
 
-    public CustomizationView(Set set){
+    public CustomizationView(Set set, SessionServiceI sessionServiceI){
         this.set = set;
+        this.sessionServiceI = sessionServiceI;
 
         layout = new VBox();
 
@@ -124,6 +126,34 @@ public class CustomizationView implements BasicStage {
         setStringConverter(armsArtsList);
         setStringConverter(legsArtsList);
 
+        // Default artefacts that represents the absence of artefacts.
+        Artefact noHeadArtefact = new Artefact("Nothing", "head",
+                0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, "bold_head");
+        Artefact noBodyArtefact = new Artefact("Nothing", "body",
+                0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, "bold_body");
+        Artefact noArmsArtefact = new Artefact("Nothing", "arm",
+                0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, "bold_arms");
+        Artefact noLegsArtefact = new Artefact("Nothing", "leg",
+                0, 0, 0,
+                0, 0, 0,
+                0, 0, 0, "bold_legs");
+
+        // Initialize combo boxes with default values.
+        headArtsList.getItems().add(noHeadArtefact);
+        headArtsList.getSelectionModel().select(noHeadArtefact);
+        bodyArtsList.getItems().add(noBodyArtefact);
+        bodyArtsList.getSelectionModel().select(noBodyArtefact);
+        armsArtsList.getItems().add(noArmsArtefact);
+        armsArtsList.getSelectionModel().select(noArmsArtefact);
+        legsArtsList.getItems().add(noLegsArtefact);
+        legsArtsList.getSelectionModel().select(noLegsArtefact);
+
         // Setting up lists of artefacts, that are availiable to user.
         for(Artefact art : user.getUserArtefacts()){
             setArtByType(art);
@@ -143,16 +173,16 @@ public class CustomizationView implements BasicStage {
     }
 
     private void setEquippedItem(Artefact art){
-        if(art.getType().equals("head") || set.getArtefacts().contains(art)){
+        if(art.getType().equals("head") && set.getArtefacts().contains(art)){
             headArtsList.getSelectionModel().select(art);
         }
-        if(art.getType().equals("body") || set.getArtefacts().contains(art)){
+        if(art.getType().equals("body") && set.getArtefacts().contains(art)){
             bodyArtsList.getSelectionModel().select(art);
         }
-        if(art.getType().equals("arms") || set.getArtefacts().contains(art)){
+        if(art.getType().equals("arms") && set.getArtefacts().contains(art)){
             armsArtsList.getSelectionModel().select(art);
         }
-        if(art.getType().equals("legs") || set.getArtefacts().contains(art)){
+        if(art.getType().equals("legs") && set.getArtefacts().contains(art)){
             legsArtsList.getSelectionModel().select(art);
         }
     }
@@ -183,6 +213,6 @@ public class CustomizationView implements BasicStage {
         newArtefacts.add(legsArtsList.getSelectionModel().getSelectedItem());
 
         Set newSet = new Set(set.getName(), codeArea.getText(), currentUser, newArtefacts);
-        sessionServiceI.updateUserSet(newSet, accessToken);
+        System.out.println(sessionServiceI.updateUserSet(newSet, accessToken));
     }
 }

@@ -117,7 +117,6 @@ public class AuthStage implements BasicStage {
         return scene;
     }
 
-    // TODO: handles whole log in process.
     private void handleLogin(){
         try {
 

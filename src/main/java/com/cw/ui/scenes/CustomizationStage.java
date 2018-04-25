@@ -165,7 +165,7 @@ public class CustomizationStage implements BasicStage{
 
         for(Set set : sets){
             if(("[" + set.getName() + "]").equals(setName)){
-                customizationView = new CustomizationView(set);
+                customizationView = new CustomizationView(set, sessionServiceI);
                 customizationView.updateUser(currentUser, accessToken);
                 break;
             }
