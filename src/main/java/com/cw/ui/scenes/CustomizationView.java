@@ -209,13 +209,13 @@ public class CustomizationView implements BasicStage {
     private void saveChanges(){
         List<Artefact> newArtefacts = new ArrayList<Artefact>();
 
-        if(headArtsList.getSelectionModel().getSelectedItem().equals(noHeadArtefact))
+        if(!headArtsList.getSelectionModel().getSelectedItem().equals(noHeadArtefact))
             newArtefacts.add(headArtsList.getSelectionModel().getSelectedItem());
-        if(bodyArtsList.getSelectionModel().getSelectedItem().equals(noBodyArtefact))
+        if(!bodyArtsList.getSelectionModel().getSelectedItem().equals(noBodyArtefact))
             newArtefacts.add(bodyArtsList.getSelectionModel().getSelectedItem());
-        if(armsArtsList.getSelectionModel().getSelectedItem().equals(noArmsArtefact))
+        if(!armsArtsList.getSelectionModel().getSelectedItem().equals(noArmsArtefact))
             newArtefacts.add(armsArtsList.getSelectionModel().getSelectedItem());
-        if(legsArtsList.getSelectionModel().getSelectedItem().equals(noLegsArtefact))
+        if(!legsArtsList.getSelectionModel().getSelectedItem().equals(noLegsArtefact))
             newArtefacts.add(legsArtsList.getSelectionModel().getSelectedItem());
 
         Set newSet = new Set(set.getName(), codeArea.getText(), currentUser, newArtefacts);

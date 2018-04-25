@@ -115,11 +115,17 @@ public class BattleStage implements BasicStage {
         setUserAccessToken(accessToken);
 
         List<Set> sets = currentUser.getSets();
-        
+
+
+
         setList.getItems().clear();
 
         for(Set set : sets){
             setList.getItems().add(set.getName());
         }
+    }
+
+    public void updateSetList(){
+
     }
 }
