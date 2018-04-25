@@ -3,6 +3,7 @@ package com.cw.ui.scenes;
 import com.cw.entities.Artefact;
 import com.cw.entities.Set;
 import com.cw.entities.User;
+import com.cw.services.SessionServiceI;
 import com.cw.ui.support.BasicStage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,12 +12,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomizationView implements BasicStage {
 
     Scene scene;
+
+    // Session services.
+    @Autowired
+    SessionServiceI sessionServiceI;
 
     // Declaring the layout and its parameters.
     VBox layout;
@@ -50,13 +57,13 @@ public class CustomizationView implements BasicStage {
 
         // Setting up layout elements.
         codeArea = new TextArea();
-        headArtLabel = new Label("Head artefacts:");
+        headArtLabel = new Label("Head artefact:");
         headArtsList = new ComboBox<Artefact>();
-        bodyArtLabel = new Label("Body artefacts:");
+        bodyArtLabel = new Label("Body artefact:");
         bodyArtsList = new ComboBox<Artefact>();
-        armsArtLabel = new Label("Arms artefacts:");
+        armsArtLabel = new Label("Arms artefact:");
         armsArtsList = new ComboBox<Artefact>();
-        legsArtLabel = new Label("Legs artefacts:");
+        legsArtLabel = new Label("Legs artefact:");
         legsArtsList = new ComboBox<Artefact>();
 
         // Seting up save changes button.
@@ -70,7 +77,7 @@ public class CustomizationView implements BasicStage {
 
         // Setting default window size.
         h = 500;
-        w = 800;
+        w = 600;
 
         layout.getChildren().add(codeArea);
         layout.getChildren().add(headArtLabel);
@@ -107,7 +114,6 @@ public class CustomizationView implements BasicStage {
         setCurrentUser(user);
         setUserAccessToken(accessToken);
 
-        //List<Artefact> arts = currentUser.getUserArtefacts();
         codeArea.setText(set.getCode());
         codeArea.setPrefWidth(Control.USE_COMPUTED_SIZE);
         codeArea.setPrefHeight(Control.USE_COMPUTED_SIZE);
@@ -120,18 +126,35 @@ public class CustomizationView implements BasicStage {
 
         // Setting up lists of artefacts, that are availiable to user.
         for(Artefact art : user.getUserArtefacts()){
-            if(art.getType().equals("head"))
-                headArtsList.getItems().add(art);
-            if(art.getType().equals("body"))
-                bodyArtsList.getItems().add(art);
-            if(art.getType().equals("arms"))
-                armsArtsList.getItems().add(art);
-            if(art.getType().equals("legs"))
-                legsArtsList.getItems().add(art);
+            setArtByType(art);
+            setEquippedItem(art);
         }
+    }
 
+    private void setArtByType(Artefact art){
+        if(art.getType().equals("head"))
+            headArtsList.getItems().add(art);
+        if(art.getType().equals("body"))
+            bodyArtsList.getItems().add(art);
+        if(art.getType().equals("arms"))
+            armsArtsList.getItems().add(art);
+        if(art.getType().equals("legs"))
+            legsArtsList.getItems().add(art);
+    }
 
-
+    private void setEquippedItem(Artefact art){
+        if(art.getType().equals("head") || set.getArtefacts().contains(art)){
+            headArtsList.getSelectionModel().select(art);
+        }
+        if(art.getType().equals("body") || set.getArtefacts().contains(art)){
+            bodyArtsList.getSelectionModel().select(art);
+        }
+        if(art.getType().equals("arms") || set.getArtefacts().contains(art)){
+            armsArtsList.getSelectionModel().select(art);
+        }
+        if(art.getType().equals("legs") || set.getArtefacts().contains(art)){
+            legsArtsList.getSelectionModel().select(art);
+        }
     }
 
     private void setStringConverter(ComboBox<Artefact> art){
@@ -152,6 +175,14 @@ public class CustomizationView implements BasicStage {
 
     // Queries server to update set data in data base.
     private void saveChanges(){
+        List<Artefact> newArtefacts = new ArrayList<Artefact>();
 
+        newArtefacts.add(headArtsList.getSelectionModel().getSelectedItem());
+        newArtefacts.add(bodyArtsList.getSelectionModel().getSelectedItem());
+        newArtefacts.add(armsArtsList.getSelectionModel().getSelectedItem());
+        newArtefacts.add(legsArtsList.getSelectionModel().getSelectedItem());
+
+        Set newSet = new Set(set.getName(), codeArea.getText(), currentUser, newArtefacts);
+        sessionServiceI.updateUserSet(newSet, accessToken);
     }
 }

@@ -146,6 +146,8 @@ public class CustomizationStage implements BasicStage{
 
         List<Set> sets = currentUser.getSets(); //sessionServiceI.getAllSetsOfMyUser(accessToken, currentUser);
 
+        setList.getItems().clear();
+
         for(Set set : sets){
             setList.getItems().add(set.getName());
         }
