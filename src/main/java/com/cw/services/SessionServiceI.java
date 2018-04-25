@@ -40,6 +40,8 @@ public interface SessionServiceI {
     // accessToken - token of current user's session
     void addNewSetToMyUser(Set set, String accessToken);
 
+    boolean updateUserSet(Set set, String accessToken);
+
     // precondition: artefact should be present in user backpack (user artifact list) and currentSet is already in database
     boolean addArtefactFromBackpackToSet(Artefact artefact, Set set, String accessToken);
 
@@ -52,7 +54,8 @@ public interface SessionServiceI {
     // user - the one we want to fight against
     // accessToken - token of current user's session
     // set - set chosen by current user to use in fight
-    void startFightAgainstUsers(Set set, String accessToken, String stringBattleFieldType) throws FighterException;
+    // returns id for getting result
+    int startFightAgainstUsers(Set set, String accessToken, String stringBattleFieldType) throws FighterException;
 
     String getMyUserStatus(String accessToken);
 
@@ -61,6 +64,9 @@ public interface SessionServiceI {
 
     // returns all users that are online whose status is ready-to-fight
     List<User> getUsersReadyToFight();
+
+    //returns fight result
+    String getFightResultForDuel(String accessToken, int resultId);
 
     String getMyUserFightStatistics(String accessToken);
 }
