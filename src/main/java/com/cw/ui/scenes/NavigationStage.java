@@ -94,7 +94,10 @@ public class NavigationStage implements BasicStage {
 
         // Setting the info button;
         battleBtn = new Button("Enter Battle");
-        battleBtn.setOnAction(e -> window.setScene(battleStage.getScene()));
+        battleBtn.setOnAction(e -> {
+            battleStage.updateUser(currentUser, accessToken);
+            window.setScene(battleStage.getScene());
+        });
         battleBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // Setting the login button;

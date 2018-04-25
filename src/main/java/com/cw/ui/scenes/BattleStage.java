@@ -2,6 +2,7 @@ package com.cw.ui.scenes;
 
 import com.cw.entities.Artefact;
 import com.cw.entities.Set;
+import com.cw.entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,12 +15,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.cw.ui.support.BasicStage;
 
+import java.util.List;
+
 @Component
 public class BattleStage implements BasicStage {
 
     // Main stage and scene.
     Stage window;
     Scene scene;
+
+    // Acces token of current user.
+    String accessToken;
+
+    // Current user.
+    User currentUser;
 
     @Autowired
     NavigationStage navigationStage;
@@ -91,5 +100,26 @@ public class BattleStage implements BasicStage {
                         ap.getName().equals(name)).findFirst().orElse(null);
             }
         });
+    }
+
+    public void setCurrentUser(User currentUser){
+        this.currentUser = currentUser;
+    }
+
+    public void setUserAccessToken(String accessToken){
+        this.accessToken = accessToken;
+    }
+
+    public void updateUser(User user, String accessToken){
+        setCurrentUser(user);
+        setUserAccessToken(accessToken);
+
+        List<Set> sets = currentUser.getSets();
+        
+        setList.getItems().clear();
+
+        for(Set set : sets){
+            setList.getItems().add(set.getName());
+        }
     }
 }

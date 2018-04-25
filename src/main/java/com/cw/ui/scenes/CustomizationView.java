@@ -51,6 +51,24 @@ public class CustomizationView implements BasicStage {
     Label legsArtLabel;
     Button saveButton;
 
+    // Default artefacts that represents the absence of artefacts.
+    Artefact noHeadArtefact = new Artefact("Nothing", "head",
+            0, 0, 0,
+            0, 0, 0,
+            0, 0, 0, "bold_head");
+    Artefact noBodyArtefact = new Artefact("Nothing", "body",
+            0, 0, 0,
+            0, 0, 0,
+            0, 0, 0, "bold_body");
+    Artefact noArmsArtefact = new Artefact("Nothing", "arm",
+            0, 0, 0,
+            0, 0, 0,
+            0, 0, 0, "bold_arms");
+    Artefact noLegsArtefact = new Artefact("Nothing", "leg",
+            0, 0, 0,
+            0, 0, 0,
+            0, 0, 0, "bold_legs");
+
     public CustomizationView(Set set, SessionServiceI sessionServiceI){
         this.set = set;
         this.sessionServiceI = sessionServiceI;
@@ -126,23 +144,7 @@ public class CustomizationView implements BasicStage {
         setStringConverter(armsArtsList);
         setStringConverter(legsArtsList);
 
-        // Default artefacts that represents the absence of artefacts.
-        Artefact noHeadArtefact = new Artefact("Nothing", "head",
-                0, 0, 0,
-                0, 0, 0,
-                0, 0, 0, "bold_head");
-        Artefact noBodyArtefact = new Artefact("Nothing", "body",
-                0, 0, 0,
-                0, 0, 0,
-                0, 0, 0, "bold_body");
-        Artefact noArmsArtefact = new Artefact("Nothing", "arm",
-                0, 0, 0,
-                0, 0, 0,
-                0, 0, 0, "bold_arms");
-        Artefact noLegsArtefact = new Artefact("Nothing", "leg",
-                0, 0, 0,
-                0, 0, 0,
-                0, 0, 0, "bold_legs");
+
 
         // Initialize combo boxes with default values.
         headArtsList.getItems().add(noHeadArtefact);
@@ -207,10 +209,14 @@ public class CustomizationView implements BasicStage {
     private void saveChanges(){
         List<Artefact> newArtefacts = new ArrayList<Artefact>();
 
-        newArtefacts.add(headArtsList.getSelectionModel().getSelectedItem());
-        newArtefacts.add(bodyArtsList.getSelectionModel().getSelectedItem());
-        newArtefacts.add(armsArtsList.getSelectionModel().getSelectedItem());
-        newArtefacts.add(legsArtsList.getSelectionModel().getSelectedItem());
+        if(headArtsList.getSelectionModel().getSelectedItem().equals(noHeadArtefact))
+            newArtefacts.add(headArtsList.getSelectionModel().getSelectedItem());
+        if(bodyArtsList.getSelectionModel().getSelectedItem().equals(noBodyArtefact))
+            newArtefacts.add(bodyArtsList.getSelectionModel().getSelectedItem());
+        if(armsArtsList.getSelectionModel().getSelectedItem().equals(noArmsArtefact))
+            newArtefacts.add(armsArtsList.getSelectionModel().getSelectedItem());
+        if(legsArtsList.getSelectionModel().getSelectedItem().equals(noLegsArtefact))
+            newArtefacts.add(legsArtsList.getSelectionModel().getSelectedItem());
 
         Set newSet = new Set(set.getName(), codeArea.getText(), currentUser, newArtefacts);
         newSet.setId(set.getId());
