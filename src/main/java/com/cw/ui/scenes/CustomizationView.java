@@ -213,6 +213,7 @@ public class CustomizationView implements BasicStage {
         newArtefacts.add(legsArtsList.getSelectionModel().getSelectedItem());
 
         Set newSet = new Set(set.getName(), codeArea.getText(), currentUser, newArtefacts);
+        newSet.setId(set.getId());
         System.out.println(sessionServiceI.updateUserSet(newSet, accessToken));
     }
 }

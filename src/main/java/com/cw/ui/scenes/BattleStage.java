@@ -1,11 +1,15 @@
 package com.cw.ui.scenes;
 
+import com.cw.entities.Artefact;
+import com.cw.entities.Set;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.cw.ui.support.BasicStage;
@@ -24,6 +28,7 @@ public class BattleStage implements BasicStage {
     GridPane layout;
 
     // Scene elements.
+    ComboBox setList;
     Button backBtn;
 
     // Scene size.
@@ -43,6 +48,9 @@ public class BattleStage implements BasicStage {
     public void init(Stage stage) {
 
         window = stage;
+
+        // Setting up layout elements.
+        setList = new ComboBox<Set>();
 
         // Setting up back button.
         backBtn = new Button("Back");
@@ -67,5 +75,21 @@ public class BattleStage implements BasicStage {
         layout.setHgap(10);
         layout.setVgap(10);
         layout.setPadding(new Insets(25, 25, 25, 25));
+    }
+
+    private void setStringConverter(ComboBox<Set> set){
+        set.setConverter(new StringConverter<Set>() {
+
+            @Override
+            public String toString(Set set) {
+                return set.getName();
+            }
+
+            @Override
+            public Set fromString(String name) {
+                return set.getItems().stream().filter(ap ->
+                        ap.getName().equals(name)).findFirst().orElse(null);
+            }
+        });
     }
 }
