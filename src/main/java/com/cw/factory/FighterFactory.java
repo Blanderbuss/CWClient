@@ -23,7 +23,6 @@ public class FighterFactory {
 		try {
 			classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -39,10 +38,11 @@ public class FighterFactory {
 			"}\n";
 
 	private static final String templateContent = "" +
-			"import com.cw.BattleLogic.Fighter;\n" +
+			"import com.cw.BattleLogic.FighterI;\n" +
 			"import com.cw.BattleLogic.GameEnvironment;\n" +
 			"import com.cw.entities.Tuple;\n" +
-			"import org.springframework.stereotype.Service;\n" +
+			"import com.cw.factory.ActionExecutor;\n" +
+			"public class %s implements ActionExecutor {\n" +
 			"    public Tuple<FighterI.Action,FighterI> selectAction(FighterI self, GameEnvironment env) {\r\n" +
 			"        %s\r\n" + 
 			"    }\r\n" + 
@@ -53,16 +53,16 @@ public class FighterFactory {
 		if (isSafeCode(code)) {
 			if (writeActionDoer(suffix, code)) {
 				if (compileActionDoer(suffix)) {
-					System.out.println( "Code contains no errors. " );
+					System.err.println( "[INFO] CODEFACTORY:("+suffix+")Code contains no errors. " );
 					return getActionDoer(suffix);
 				} else {
-					System.out.println( "Error in your code! " );
-					return null; // TODO check
+					System.err.println( "[INFO] CODEFACTORY:("+suffix+")Error in the code! " );
+					return null;
 				}
 			} else
-				System.out.println("failed to write ActionExecutor");
+				System.err.println("[INFO] CODEFACTORY:("+suffix+")failed to write ActionExecutor");
 		} else {
-			System.out.println("aborted: your code is not safe, your actions "
+			System.err.println("[INFO] CODEFACTORY:("+suffix+")aborted: your code is not safe, your actions "
 					+ "will be reported");
 			//report(code);
 		}
@@ -85,28 +85,20 @@ public class FighterFactory {
 		try {
 			Class<ActionExecutor> cls = (Class<ActionExecutor>) Class.forName( getClassName(suffix) , true, classLoader);
 			res = cls.newInstance();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
 			e.printStackTrace();
 		}
-		return res;
+        return res;
 	}
 
 	private static boolean writeActionDoer(String suffix, String code) {
 		File f = new File(getFilePath(suffix));
-		String normalizedCode = code.replace("\n", ";\r\n        ");
+		String normalizedCode = code.replace("\n", "\r\n        ");
 		if (normalizedCode.length() >= 10)
-			normalizedCode = normalizedCode.substring(0, normalizedCode.length() - 10);
+			normalizedCode = normalizedCode.substring(0, normalizedCode.length());
 		try ( BufferedWriter w = new BufferedWriter(new FileWriter(f)) ) {
 			w.write(String.format(templateContent, getClassName(suffix), normalizedCode));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
