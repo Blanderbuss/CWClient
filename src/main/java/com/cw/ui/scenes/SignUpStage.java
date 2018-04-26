@@ -1,10 +1,12 @@
 package com.cw.ui.scenes;
 
+import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -18,6 +20,10 @@ import com.cw.ui.support.BasicStage;
 
 @Component
 public class SignUpStage implements BasicStage {
+
+    // Session services.
+    @Autowired
+    SessionServiceI sessionServiceI;
 
     // Main stage and scene.
     Stage window;
@@ -36,12 +42,12 @@ public class SignUpStage implements BasicStage {
     // Scene elements.
     Button backBtn;
     Button signUpBtn;
-    TextField nameTxt;
-    TextField surnameTxt;
+    //TextField nameTxt;
+    TextField emailTxt;
     TextField loginTxt;
     TextField passwdTxt;
-    Label nameLbl;
-    Label surnameLbl;
+    //Label nameLbl;
+    Label emailLbl;
     Label loginLbl;
     Label passwdLbl;
 
@@ -53,13 +59,13 @@ public class SignUpStage implements BasicStage {
         w = 400;
 
         // Initializing layout elements.
-        nameTxt = new TextField();
+        //nameTxt = new TextField();
         loginTxt = new TextField();
-        surnameTxt = new TextField();
-        passwdTxt = new TextField();
+        emailTxt = new TextField();
+        passwdTxt = new PasswordField();
 
-        nameLbl = new Label("Name:");
-        surnameLbl = new Label("Surname:");
+        //nameLbl = new Label("Name:");
+        emailLbl = new Label("Email:");
         loginLbl = new Label("Login:");
         passwdLbl = new Label("Password:");
 
@@ -86,10 +92,10 @@ public class SignUpStage implements BasicStage {
         });
 
         // Setting up the layout.
-        layout.add(nameLbl, 0, 0);
-        layout.add(nameTxt, 1, 0);
-        layout.add(surnameLbl, 0, 1);
-        layout.add(surnameTxt, 1, 1);
+        //layout.add(nameLbl, 0, 0);
+        //layout.add(nameTxt, 1, 0);
+        layout.add(emailLbl, 0, 1);
+        layout.add(emailTxt, 1, 1);
         layout.add(loginLbl, 0, 2);
         layout.add(loginTxt, 1, 2);
         layout.add(passwdLbl, 0, 3);
@@ -106,7 +112,25 @@ public class SignUpStage implements BasicStage {
     }
 
     private boolean handleSignUp(){
-        return true;
+        String username = loginTxt.getText();
+        String email = emailTxt.getText();
+        String pwd = passwdTxt.getText();
+        if(notEmty()) {
+            sessionServiceI.register(username, email, pwd);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean notEmty(){
+        if(!loginTxt.getText().equals("") &&
+                !emailTxt.getText().equals("") &&
+                !passwdTxt.getText().equals("")){
+
+            return true;
+        }
+        System.out.println("empty!");
+        return false;
     }
 
     private void setUpLayout(){
