@@ -3,6 +3,8 @@ package com.cw.ui.scenes;
 import com.cw.entities.Artefact;
 import com.cw.entities.Set;
 import com.cw.entities.User;
+import com.cw.exceptions.FighterException;
+import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,6 +26,10 @@ public class BattleStage implements BasicStage {
     Stage window;
     Scene scene;
 
+    // Session services.
+    @Autowired
+    SessionServiceI sessionServiceI;
+
     // Acces token of current user.
     String accessToken;
 
@@ -38,6 +44,7 @@ public class BattleStage implements BasicStage {
 
     // Scene elements.
     ComboBox setList;
+    Button battleBtn;
     Button backBtn;
 
     // Scene size.
@@ -62,11 +69,16 @@ public class BattleStage implements BasicStage {
         setList = new ComboBox<Set>();
 
         // Setting up back button.
+        battleBtn = new Button("Start Battle");
+        battleBtn.setOnAction(e -> startBattle());
+
+        // Setting up back button.
         backBtn = new Button("Back");
         backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
 
-        layout.add(setList, 0, 1);
-        layout.add(backBtn, 0, 0);
+        layout.add(setList, 0, 0);
+        layout.add(battleBtn, 1, 0);
+        layout.add(backBtn, 1, 2);
 
         scene = new Scene(layout, h, w);
 
@@ -129,5 +141,16 @@ public class BattleStage implements BasicStage {
 
     public void updateSetList(){
 
+    }
+
+    public void startBattle(){
+        Set selectedSet = (Set) setList.getSelectionModel().getSelectedItem();
+        try {
+            int resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
+                    accessToken, "Duel");
+            System.out.println(resultId);
+        } catch (FighterException e) {
+            e.printStackTrace();
+        }
     }
 }
