@@ -75,8 +75,8 @@ public class BattleStage implements BasicStage {
         statusLbl = new Label("Press button to search for battle.");
         logArea = new TextArea();
         logArea.setEditable(false);
-        logArea.setMouseTransparent(true);
-        logArea.setFocusTraversable(false);
+        //logArea.setMouseTransparent(true);
+        //logArea.setFocusTraversable(false);
         setList = new ComboBox<Set>();
 
         // Setting up back button.
@@ -160,6 +160,7 @@ public class BattleStage implements BasicStage {
     }
 
     public void startBattle(){
+        battleBtn.setVisible(false);
         Set selectedSet = (Set) setList.getSelectionModel().getSelectedItem();
         try {
             int resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
@@ -188,7 +189,7 @@ public class BattleStage implements BasicStage {
             }
         }
         statusLbl.setText("Battle done! You may start another one.");
-        battleBtn.setDisable(false);
+        battleBtn.setVisible(true);
     }
 
 }
