@@ -81,7 +81,7 @@ public class CustomizationView implements BasicStage {
         headArtsList = new ComboBox<Artefact>();
         bodyArtLabel = new Label("Body artefact:");
         bodyArtsList = new ComboBox<Artefact>();
-        armsArtLabel = new Label("Arms artefact:");
+        armsArtLabel = new Label("Two arms artefact:");
         armsArtsList = new ComboBox<Artefact>();
         legsArtLabel = new Label("Legs artefact:");
         legsArtsList = new ComboBox<Artefact>();
@@ -168,7 +168,7 @@ public class CustomizationView implements BasicStage {
             headArtsList.getItems().add(art);
         if(art.getType().equals("body"))
             bodyArtsList.getItems().add(art);
-        if(art.getType().equals("arms"))
+        if(art.getType().equals("two arms"))
             armsArtsList.getItems().add(art);
         if(art.getType().equals("legs"))
             legsArtsList.getItems().add(art);
@@ -181,7 +181,7 @@ public class CustomizationView implements BasicStage {
         if(art.getType().equals("body") && set.getArtefacts().contains(art)){
             bodyArtsList.getSelectionModel().select(art);
         }
-        if(art.getType().equals("arms") && set.getArtefacts().contains(art)){
+        if(art.getType().equals("two arms") && set.getArtefacts().contains(art)){
             armsArtsList.getSelectionModel().select(art);
         }
         if(art.getType().equals("legs") && set.getArtefacts().contains(art)){
