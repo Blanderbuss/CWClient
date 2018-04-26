@@ -170,9 +170,11 @@ public class BattleStage implements BasicStage {
     private void queryServer(int id){
         boolean no_result = true;
         String res = "";
+        statusLbl.setText("Waiting for battle...");
         while(no_result){
             res = sessionServiceI.getFightResultForDuel(accessToken, id);
-            if(res!="")
+            if(!res.equals(""))
+                statusLbl.setText("Retrieved result!");
                 logArea.setText(res);
                 no_result = false;
             try {
@@ -181,6 +183,7 @@ public class BattleStage implements BasicStage {
                 e.printStackTrace();
             }
         }
+        statusLbl.setText("Battle done! You may start another one.");
     }
 
 }
