@@ -1,5 +1,6 @@
 package com.cw.client;
 
+import com.cw.exceptions.IncorrectAccessTokenException;
 import com.cw.exceptions.UserNotFoundException;
 import com.cw.services.SessionServiceI;
 import com.cw.entities.Artefact;
@@ -41,8 +42,12 @@ public class SessionServiceUserCredentialsTests {
     public void initSession() {
         if (session == null)
             session = ctx.getBean(SessionServiceI.class);
-        session.register(user1.getUsername(), user1.getEmail(), user1.getPass());
-        session.register(user2.getUsername(), user2.getEmail(), user2.getPass());
+        try {
+            session.register(user1.getUsername(), user1.getEmail(), user1.getPass());
+            session.register(user2.getUsername(), user2.getEmail(), user2.getPass());
+        } catch (IncorrectAccessTokenException e) {
+            e.printStackTrace();
+        };
     }
 
     @After
@@ -81,6 +86,7 @@ public class SessionServiceUserCredentialsTests {
 
     @Test
     public void verifyLoginWithAnotherActiveSessionLinkingToUser() {
+        try {
         String token = login(user1.getEmail(), user1.getPass());
         assertTrue(session.isLoggedInByToken(token)); // new token is valid
         String newToken = login(user1.getEmail(), user1.getPass());
@@ -92,6 +98,9 @@ public class SessionServiceUserCredentialsTests {
         assertTrue(session.isLoggedInByToken(newNewToken)); // new token is valid
         session.logout(newNewToken);
         assertFalse(session.isLoggedInByToken(newNewToken));
+        } catch (IncorrectAccessTokenException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -120,7 +129,11 @@ public class SessionServiceUserCredentialsTests {
     public void verifyRegistration() {
         User user3 = new User("lamenfviontbgf", "asdfgh", "lhkmjrgkdunvb@gdf.wcs", 10, 11);
         assertFalse(session.isUserRegistered(user3.getEmail()));
-        assertTrue( session.register(user3.getUsername(), user3.getEmail(), user3.getPass()) );
+        try {
+            assertTrue( session.register(user3.getUsername(), user3.getEmail(), user3.getPass()) );
+        } catch (IncorrectAccessTokenException e) {
+            e.printStackTrace();
+        }
         assertTrue(session.isUserRegistered(user3.getEmail()));
         String token = login(user3.getEmail(), user3.getPass());
         assertTrue(session.isLoggedInByToken(token));
@@ -134,6 +147,8 @@ public class SessionServiceUserCredentialsTests {
         } catch (UserNotFoundException e) {
             //e.printStackTrace();
             //fail();
+        } catch (IncorrectAccessTokenException e) {
+            e.printStackTrace();
         }
         return result;
     }

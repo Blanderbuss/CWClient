@@ -3,6 +3,7 @@ package com.cw.ui.scenes;
 import com.cw.entities.Artefact;
 import com.cw.entities.Set;
 import com.cw.entities.User;
+import com.cw.exceptions.IncorrectAccessTokenException;
 import com.cw.services.SessionServiceI;
 import com.cw.ui.support.BasicStage;
 import javafx.geometry.Insets;
@@ -256,6 +257,10 @@ public class CustomizationView implements BasicStage {
 
         Set newSet = new Set(set.getName(), codeArea.getText(), currentUser, newArtefacts);
         newSet.setId(set.getId());
-        System.out.println(sessionServiceI.updateUserSet(newSet, accessToken));
+        try {
+            System.out.println(sessionServiceI.updateUserSet(newSet, accessToken));
+        } catch (IncorrectAccessTokenException e) {
+            e.printStackTrace();
+        }
     }
 }

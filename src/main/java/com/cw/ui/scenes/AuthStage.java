@@ -1,5 +1,6 @@
 package com.cw.ui.scenes;
 
+import com.cw.exceptions.IncorrectAccessTokenException;
 import com.cw.exceptions.UserNotFoundException;
 import com.cw.services.SessionServiceI;
 import com.cw.entities.Tuple;
@@ -142,6 +143,8 @@ public class AuthStage implements BasicStage {
             //e.printStackTrace();
             System.out.println("Login failed");
             statusLbl.setText("Wrong email of password!");
+        } catch (IncorrectAccessTokenException e) {
+            e.printStackTrace();
         }
     }
 
