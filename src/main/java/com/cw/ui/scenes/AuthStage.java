@@ -58,6 +58,7 @@ public class AuthStage implements BasicStage {
     PasswordField passwdTxt;
     Label emailLbl;
     Label passwdLbl;
+    Label statusLbl;
 
     public AuthStage(){//StagesCollection st){
 
@@ -74,6 +75,7 @@ public class AuthStage implements BasicStage {
         passwdTxt = new PasswordField();
         emailLbl = new Label("Email:");
         passwdLbl = new Label("Password:");
+        statusLbl = new Label("Log in or sign up!");
 
         // Setting the layout.
         layout.setAlignment(Pos.CENTER);
@@ -108,6 +110,8 @@ public class AuthStage implements BasicStage {
         layout.add(loginBtn, 1, 3);
         layout.add(signUpBtn, 1, 5);
 
+        layout.add(statusLbl, 0,6, 2,1);
+
         scene = new Scene(layout, h, w);
     }
 
@@ -138,6 +142,7 @@ public class AuthStage implements BasicStage {
             //TODO handle exception
             //e.printStackTrace();
             System.out.println("Login failed");
+            statusLbl.setText("Wrong email of password!");
         }
     }
 

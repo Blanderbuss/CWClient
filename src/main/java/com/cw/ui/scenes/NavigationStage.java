@@ -1,6 +1,7 @@
 package com.cw.ui.scenes;
 
 import com.cw.entities.User;
+import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +19,10 @@ public class NavigationStage implements BasicStage {
     // Main stage and scene.
     Stage window;
     Scene scene;
+
+    // Session services.
+    @Autowired
+    SessionServiceI sessionServiceI;
 
     // Authentication page reference.
     @Autowired
@@ -104,6 +109,7 @@ public class NavigationStage implements BasicStage {
         logoutBtn = new Button("Logout");
         logoutBtn.setOnAction(e -> {
             currentUser = null;
+            sessionServiceI.logout(accessToken);
             window.setScene(authStage.getScene());
         });
         logoutBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
