@@ -25,8 +25,6 @@ public interface SessionServiceI {
 
     // indicates whether current session is active and valid
     boolean isLoggedIn(User user);
-    @Deprecated
-    boolean isLoggedInByEmail(String email); // TODO delete
     boolean isLoggedInByToken(String accessToken);
     boolean isUserRegistered(String email);
 
@@ -44,8 +42,6 @@ public interface SessionServiceI {
 
     // precondition: artefact should be present in user backpack (user artifact list) and currentSet is already in database
     boolean addArtefactFromBackpackToSet(Artefact artefact, Set set, String accessToken);
-
-    //TODO add methods to modify and delete user sets
 
     // starts a fight
     // accessToken - token of current user's session

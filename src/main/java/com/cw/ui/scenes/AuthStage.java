@@ -33,8 +33,8 @@ public class AuthStage implements BasicStage {
 
 
     // Main stage and scene.
-    Stage window;
-    Scene scene;
+    private Stage window;
+    private Scene scene;
 
     // Sign up stage.
     @Autowired
@@ -49,16 +49,16 @@ public class AuthStage implements BasicStage {
     private int w;
 
     // Scenes layout.
-    GridPane layout;
+    private GridPane layout;
 
     // Scene elements.
-    Button loginBtn;
-    Button signUpBtn;
-    TextField emailTxt;
-    PasswordField passwdTxt;
-    Label emailLbl;
-    Label passwdLbl;
-    Label statusLbl;
+    private Button loginBtn;
+    private Button signUpBtn;
+    private TextField emailTxt;
+    private PasswordField passwdTxt;
+    private Label emailLbl;
+    private Label passwdLbl;
+    private Label statusLbl;
 
     public AuthStage(){//StagesCollection st){
 
@@ -126,8 +126,8 @@ public class AuthStage implements BasicStage {
 
             System.out.println(emailTxt.getText() + passwdTxt.getText());
 
-            User user = null;
-            String accessToken = null;
+            User user;
+            String accessToken;
             Tuple<String, User> tuple = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
             user = tuple.val2;
             accessToken = tuple.val1;
@@ -139,7 +139,6 @@ public class AuthStage implements BasicStage {
             window.setScene(navigationStage.getScene());
 
         } catch (UserNotFoundException e) {
-            //TODO handle exception
             //e.printStackTrace();
             System.out.println("Login failed");
             statusLbl.setText("Wrong email of password!");

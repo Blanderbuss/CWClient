@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Set implements Serializable {
-    //TODO field lvl from table users
     @NotNull
     private int id;
 
@@ -50,7 +49,7 @@ public class Set implements Serializable {
         this.name = other.name;
         this.code = other.code;
         this.artefacts = other.artefacts.stream()
-                .map(art -> new Artefact(art))
+                .map(Artefact::new)
                 .collect(Collectors.toList());
     }
 
@@ -119,7 +118,8 @@ public class Set implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
-                ", user=" + user.getEmail() +
+      //          ", user=" + user.getEmail() +
+                ", artefacts=" + artefacts +
                 '}';
     }
 }
