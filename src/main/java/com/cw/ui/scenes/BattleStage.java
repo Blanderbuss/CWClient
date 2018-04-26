@@ -174,7 +174,7 @@ public class BattleStage implements BasicStage {
 
         private int resultId;
 
-        public QueryServer(int resultId){
+        QueryServer(int resultId){
             this.resultId=resultId;
         }
 
@@ -189,6 +189,9 @@ public class BattleStage implements BasicStage {
             while(no_result){
                 res = sessionServiceI.getFightResultForDuel(accessToken, id);
                 if(!res.equals("")) {
+                    Set selectedSet = (Set) setList.getSelectionModel().getSelectedItem();
+                    res = res.replaceAll("Fighter " + selectedSet.getName(),"Your fighter");
+                    res = res.replaceAll("Target " + selectedSet.getName(),"Your fighter");
                     logArea.setText(res);
                     no_result = false;
                 }
