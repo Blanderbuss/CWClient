@@ -4,6 +4,7 @@ import com.cw.entities.Set;
 import com.cw.entities.User;
 import com.cw.exceptions.IncorrectAccessTokenException;
 import com.cw.services.SessionServiceI;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -44,6 +45,9 @@ public class BattleStage implements BasicStage {
     TextField statusLbl;
     TextArea logArea;
     ComboBox setList;
+    //ToggleGroup battleModes;
+    ToggleButton battleMode;
+    //ToggleButton botMode;
     Button battleBtn;
     Button backBtn;
 
@@ -75,6 +79,14 @@ public class BattleStage implements BasicStage {
         //logArea.setFocusTraversable(false);
         setList = new ComboBox<Set>();
 
+        //battleModes = new ToggleGroup();
+
+        battleMode = new ToggleButton("Bot mode");
+        //duelMode.setToggleGroup(battleModes);
+        battleMode.setSelected(true);
+        //botMode = new ToggleButton("Bot mode");
+        //botMode.setToggleGroup(battleModes);
+
         // Setting up back button.
         battleBtn = new Button("Start Battle");
         battleBtn.setOnAction(e -> {
@@ -86,10 +98,12 @@ public class BattleStage implements BasicStage {
         backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
 
         layout.add(logArea, 0, 0);
-        layout.add(setList, 0, 1);
-        layout.add(battleBtn, 0, 2);
-        layout.add(backBtn, 0, 3);
-        layout.add(statusLbl, 0, 4);
+        layout.add(battleMode, 0, 1);
+        layout.add(setList, 0, 2);
+        layout.add(battleBtn, 0, 3);
+        layout.add(backBtn, 0, 4);
+        layout.add(statusLbl, 0, 5);
+        //layout.add(tb, 0, 5);
 
         scene = new Scene(layout, h, w);
 
@@ -160,8 +174,13 @@ public class BattleStage implements BasicStage {
         battleBtn.setDisable(true);
         Set selectedSet = (Set) setList.getSelectionModel().getSelectedItem();
         try {
-            int resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
+            int resultId;
+            if(!battleMode.isSelected())
+                resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
                     accessToken, "Duel");
+            else
+                resultId = sessionServiceI.startFightAgainstBot(selectedSet,
+                        accessToken, "Bot");
             System.out.println(resultId);
             QueryServer qs = new QueryServer(resultId);
             new Thread(qs).start();
