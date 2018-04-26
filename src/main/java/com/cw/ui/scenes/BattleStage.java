@@ -1,6 +1,5 @@
 package com.cw.ui.scenes;
 
-import com.cw.entities.Artefact;
 import com.cw.entities.Set;
 import com.cw.entities.User;
 import com.cw.exceptions.FighterException;
@@ -8,10 +7,7 @@ import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -20,8 +16,6 @@ import org.springframework.stereotype.Component;
 import com.cw.ui.support.BasicStage;
 
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 @Component
 public class BattleStage implements BasicStage {
@@ -47,7 +41,7 @@ public class BattleStage implements BasicStage {
     GridPane layout;
 
     // Scene elements.
-    Label statusLbl;
+    TextField statusLbl;
     TextArea logArea;
     ComboBox setList;
     Button battleBtn;
@@ -72,7 +66,9 @@ public class BattleStage implements BasicStage {
         window = stage;
 
         // Setting up layout elements.
-        statusLbl = new Label("Press button to search for battle.");
+        statusLbl = new TextField("Press button to search for battle.");
+        statusLbl.setEditable(false);
+        statusLbl.setFocusTraversable(false);
         logArea = new TextArea();
         logArea.setEditable(false);
         //logArea.setMouseTransparent(true);
