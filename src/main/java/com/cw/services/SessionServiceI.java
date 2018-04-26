@@ -62,7 +62,7 @@ public interface SessionServiceI {
     List<User> getUsersReadyToFight();
 
     //returns fight result
-    String getFightResultForDuel(String accessToken, int resultId) throws IncorrectAccessTokenException;
+    String getFightResultForType(String accessToken, int resultId, String typeOfBattleField) throws IncorrectAccessTokenException;
 
     String getMyUserFightStatistics(String accessToken) throws IncorrectAccessTokenException;
 }

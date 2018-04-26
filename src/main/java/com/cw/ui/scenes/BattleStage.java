@@ -175,14 +175,18 @@ public class BattleStage implements BasicStage {
         Set selectedSet = (Set) setList.getSelectionModel().getSelectedItem();
         try {
             int resultId;
-            if(!battleMode.isSelected())
+            QueryServer qs;
+            if(!battleMode.isSelected()) {
                 resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
                     accessToken, "Duel");
-            else
+                System.out.println(resultId);
+                qs = new QueryServer(resultId,"Duel");
+            } else {
                 resultId = sessionServiceI.startFightAgainstBot(selectedSet,
                         accessToken, "Bot");
-            System.out.println(resultId);
-            QueryServer qs = new QueryServer(resultId);
+                System.out.println(resultId);
+                qs = new QueryServer(resultId,"Bot");
+            }
             new Thread(qs).start();
         } catch (IncorrectAccessTokenException e) {
             e.printStackTrace();
@@ -192,22 +196,24 @@ public class BattleStage implements BasicStage {
     private class QueryServer implements Runnable{
 
         private int resultId;
+        private String typeOfBattleField;
 
-        QueryServer(int resultId){
+        QueryServer(int resultId, String typeOfBattleField){
             this.resultId=resultId;
+            this.typeOfBattleField=typeOfBattleField;
         }
 
         @Override
         public void run() {
-            queryServer(this.resultId);
+            queryServer(this.resultId,this.typeOfBattleField);
         }
 
-        private void queryServer(int id){
+        private void queryServer(int id, String type){
             boolean no_result = true;
             String res = "";
             while(no_result){
                 try {
-                    res = sessionServiceI.getFightResultForDuel(accessToken, id);
+                    res = sessionServiceI.getFightResultForType(accessToken, id, type);
                 } catch (IncorrectAccessTokenException e) {
                     e.printStackTrace();
                 }
