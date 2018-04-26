@@ -173,10 +173,10 @@ public class BattleStage implements BasicStage {
         statusLbl.setText("Waiting for battle...");
         while(no_result){
             res = sessionServiceI.getFightResultForDuel(accessToken, id);
-            if(!res.equals(""))
-                statusLbl.setText("Retrieved result!");
+            if(!res.equals("")) {
                 logArea.setText(res);
                 no_result = false;
+            }
             try {
                 sleep(5000);
             } catch (InterruptedException e) {
