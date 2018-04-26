@@ -31,7 +31,6 @@ public class AuthStage implements BasicStage {
     @Autowired
     SessionServiceI sessionServiceI;
 
-
     // Main stage and scene.
     private Stage window;
     private Scene scene;
@@ -136,6 +135,10 @@ public class AuthStage implements BasicStage {
             System.out.println("Received accessToken: " + accessToken);
 
             navigationStage.updateUser(user, accessToken);
+
+            // Clear the password field.
+            passwdTxt.setText("");
+
             window.setScene(navigationStage.getScene());
 
         } catch (UserNotFoundException e) {

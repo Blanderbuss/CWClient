@@ -95,6 +95,9 @@ public class NavigationStage implements BasicStage {
         // Battle stage initialization.
         battleStage.init(stage);
 
+        // Backpack stage initialization.
+        backpackStage.init(stage);
+
         // Setting the info button;
         cstmBtn = new Button("Customize");
         cstmBtn.setOnAction(e -> {
@@ -120,9 +123,10 @@ public class NavigationStage implements BasicStage {
         });
         logoutBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        // Setting the login button;
+        // Setting the backpack button;
         backpackBtn = new Button("Backpack");
         backpackBtn.setOnAction(e -> {
+            backpackStage.updateUser(currentUser, accessToken);
             window.setScene(backpackStage.getScene());
         });
         backpackBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -140,8 +144,8 @@ public class NavigationStage implements BasicStage {
         layout.getChildren().add(nameLbl);
         layout.getChildren().add(cstmBtn);
         layout.getChildren().add(battleBtn);
-        layout.getChildren().add(logoutBtn);
         layout.getChildren().add(backpackBtn);
+        layout.getChildren().add(logoutBtn);
 
         //layout.getChildren().add(listView);
 
