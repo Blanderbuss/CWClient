@@ -173,7 +173,7 @@ public class BattleStage implements BasicStage {
         while(no_result){
             res = sessionServiceI.getFightResultForDuel(accessToken, id);
             if(res!="")
-                logArea.appendText(res);
+                logArea.setText(res);
                 no_result = false;
             try {
                 sleep(5000);
