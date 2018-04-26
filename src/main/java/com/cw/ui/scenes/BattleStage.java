@@ -10,6 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Component;
 import com.cw.ui.support.BasicStage;
 
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 @Component
 public class BattleStage implements BasicStage {
@@ -43,6 +47,8 @@ public class BattleStage implements BasicStage {
     GridPane layout;
 
     // Scene elements.
+    Label statusLbl;
+    TextArea logArea;
     ComboBox setList;
     Button battleBtn;
     Button backBtn;
@@ -66,19 +72,25 @@ public class BattleStage implements BasicStage {
         window = stage;
 
         // Setting up layout elements.
+        statusLbl = new Label("Press button to search for battle.");
+        logArea = new TextArea();
         setList = new ComboBox<Set>();
 
         // Setting up back button.
         battleBtn = new Button("Start Battle");
-        battleBtn.setOnAction(e -> startBattle());
+        battleBtn.setOnAction(e -> {
+            startBattle();
+        });
 
         // Setting up back button.
         backBtn = new Button("Back");
         backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
 
-        layout.add(setList, 0, 0);
-        layout.add(battleBtn, 1, 0);
-        layout.add(backBtn, 1, 2);
+        layout.add(logArea, 0, 0);
+        layout.add(setList, 0, 1);
+        layout.add(battleBtn, 0, 2);
+        layout.add(backBtn, 0, 3);
+        layout.add(statusLbl, 0, 4);
 
         scene = new Scene(layout, h, w);
 
@@ -149,8 +161,26 @@ public class BattleStage implements BasicStage {
             int resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
                     accessToken, "Duel");
             System.out.println(resultId);
+            queryServer(resultId);
         } catch (FighterException e) {
             e.printStackTrace();
         }
     }
+
+    private void queryServer(int id){
+        boolean no_result = true;
+        String res = "";
+        while(no_result){
+            res = sessionServiceI.getFightResultForDuel(accessToken, id);
+            if(res!="")
+                logArea.appendText(res);
+                no_result = false;
+            try {
+                sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
