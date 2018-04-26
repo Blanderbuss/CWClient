@@ -82,7 +82,6 @@ public class BattleStage implements BasicStage {
         // Setting up back button.
         battleBtn = new Button("Start Battle");
         battleBtn.setOnAction(e -> {
-            battleBtn.setDisable(true);
             startBattle();
         });
 
@@ -160,36 +159,54 @@ public class BattleStage implements BasicStage {
     }
 
     public void startBattle(){
-        battleBtn.setVisible(false);
+        logArea.setText("");
+        statusLbl.setText("Waiting for battle...");
+        battleBtn.setDisable(true);
         Set selectedSet = (Set) setList.getSelectionModel().getSelectedItem();
         try {
             int resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
                     accessToken, "Duel");
             System.out.println(resultId);
-            queryServer(resultId);
+            QueryServer qs = new QueryServer(resultId);
+            new Thread(qs).start();
         } catch (FighterException e) {
             e.printStackTrace();
         }
     }
 
-    private void queryServer(int id){
-        boolean no_result = true;
-        String res = "";
-        statusLbl.setText("Waiting for battle...");
-        while(no_result){
-            res = sessionServiceI.getFightResultForDuel(accessToken, id);
-            if(!res.equals("")) {
-                logArea.setText(res);
-                no_result = false;
-            }
-            try {
-                sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    private class QueryServer implements Runnable{
+
+        private int resultId;
+
+        public QueryServer(int resultId){
+            this.resultId=resultId;
         }
-        statusLbl.setText("Battle done! You may start another one.");
-        battleBtn.setVisible(true);
+
+        @Override
+        public void run() {
+            queryServer(this.resultId);
+        }
+
+        private void queryServer(int id){
+            boolean no_result = true;
+            String res = "";
+            while(no_result){
+                res = sessionServiceI.getFightResultForDuel(accessToken, id);
+                if(!res.equals("")) {
+                    logArea.setText(res);
+                    no_result = false;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            statusLbl.setText("Battle done! You may start another one.");
+            battleBtn.setDisable(false);
+        }
     }
+
+
 
 }
