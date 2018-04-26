@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class NavigationStage implements BasicStage {
     @Autowired
     BattleStage battleStage;
 
+    // Backpack stage.
+    @Autowired
+    BackpackStage backpackStage;
+
     // Current user.
     User currentUser;
 
@@ -54,6 +59,7 @@ public class NavigationStage implements BasicStage {
     Button cstmBtn;
     Button battleBtn;
     Button logoutBtn;
+    Button backpackBtn;
 
     public NavigationStage(){
         System.out.println("New auth stage created.");
@@ -114,6 +120,16 @@ public class NavigationStage implements BasicStage {
         });
         logoutBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        // Setting the login button;
+        backpackBtn = new Button("Backpack");
+        backpackBtn.setOnAction(e -> {
+            window.setScene(backpackStage.getScene());
+        });
+        backpackBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        backpackBtn.setTooltip(
+                new Tooltip("Button of Doom")
+        );
+
 //        ListView listView = new ListView();
 //        listView.getItems().add(cstmBtn);
 //        listView.getItems().add(infoBtn);
@@ -125,6 +141,7 @@ public class NavigationStage implements BasicStage {
         layout.getChildren().add(cstmBtn);
         layout.getChildren().add(battleBtn);
         layout.getChildren().add(logoutBtn);
+        layout.getChildren().add(backpackBtn);
 
         //layout.getChildren().add(listView);
 

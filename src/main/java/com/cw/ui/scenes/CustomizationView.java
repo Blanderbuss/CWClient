@@ -144,6 +144,11 @@ public class CustomizationView implements BasicStage {
         setStringConverter(armsArtsList);
         setStringConverter(legsArtsList);
 
+        // Seting up cell factory.
+        setArtCellFactory(headArtsList);
+        setArtCellFactory(bodyArtsList);
+        setArtCellFactory(armsArtsList);
+        setArtCellFactory(legsArtsList);
 
 
         // Initialize combo boxes with default values.
@@ -202,6 +207,37 @@ public class CustomizationView implements BasicStage {
                 return art.getItems().stream().filter(ap ->
                         ap.getName().equals(name)).findFirst().orElse(null);
             }
+        });
+    }
+
+    private void setArtCellFactory(ComboBox<Artefact> art){
+        art.setCellFactory(param -> {
+            return new ListCell<Artefact>() {
+                @Override
+                public void updateItem(Artefact item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item != null) {
+                        setText(item.getName());
+
+                        // Add the Tooltip with the text
+                        String stats = "HP: " + item.getHpBoost() + "\n" +
+                                "Mana: " + item.getManaBoost() + "\n" +
+                                "Stamina: " + item.getStaminaBoost() + "\n" +
+                                "HP Regen: " + item.getHpRegenBoost() + "\n" +
+                                "Mana Regen: " + item.getManaRegenBoost() + "\n" +
+                                "Stamina Regen: " + item.getStaminaRegenBoost() + "\n" +
+                                "Attack: " + item.getAttackBoost() + "\n" +
+                                "Evasion: " + item.getEvasionBoost() + "\n" +
+                                "Armor: " + item.getArmorBoost();
+                        Tooltip tt = new Tooltip(stats);
+                        setTooltip(tt);
+                    } else {
+                        setText(null);
+                        setTooltip(null);
+                    }
+                }
+            };
         });
     }
 
