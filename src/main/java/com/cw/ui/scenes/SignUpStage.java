@@ -1,5 +1,6 @@
 package com.cw.ui.scenes;
 
+import com.cw.exceptions.IncorrectAccessTokenException;
 import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -116,7 +117,11 @@ public class SignUpStage implements BasicStage {
         String email = emailTxt.getText();
         String pwd = passwdTxt.getText();
         if(notEmty()) {
-            sessionServiceI.register(username, email, pwd);
+            try {
+                sessionServiceI.register(username, email, pwd);
+            } catch (IncorrectAccessTokenException e) {
+                e.printStackTrace();
+            }
             return true;
         }
         return false;

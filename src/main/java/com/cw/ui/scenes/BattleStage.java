@@ -2,7 +2,7 @@ package com.cw.ui.scenes;
 
 import com.cw.entities.Set;
 import com.cw.entities.User;
-import com.cw.exceptions.FighterException;
+import com.cw.exceptions.IncorrectAccessTokenException;
 import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -165,7 +165,7 @@ public class BattleStage implements BasicStage {
             System.out.println(resultId);
             QueryServer qs = new QueryServer(resultId);
             new Thread(qs).start();
-        } catch (FighterException e) {
+        } catch (IncorrectAccessTokenException e) {
             e.printStackTrace();
         }
     }
@@ -187,7 +187,11 @@ public class BattleStage implements BasicStage {
             boolean no_result = true;
             String res = "";
             while(no_result){
-                res = sessionServiceI.getFightResultForDuel(accessToken, id);
+                try {
+                    res = sessionServiceI.getFightResultForDuel(accessToken, id);
+                } catch (IncorrectAccessTokenException e) {
+                    e.printStackTrace();
+                }
                 if(!res.equals("")) {
                     Set selectedSet = (Set) setList.getSelectionModel().getSelectedItem();
                     res = res.replaceAll("Fighter " + selectedSet.getName(),"Your fighter");

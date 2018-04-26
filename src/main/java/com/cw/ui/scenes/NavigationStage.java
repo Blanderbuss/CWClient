@@ -1,6 +1,7 @@
 package com.cw.ui.scenes;
 
 import com.cw.entities.User;
+import com.cw.exceptions.IncorrectAccessTokenException;
 import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -118,7 +119,11 @@ public class NavigationStage implements BasicStage {
         logoutBtn = new Button("Logout");
         logoutBtn.setOnAction(e -> {
             currentUser = null;
-            sessionServiceI.logout(accessToken);
+            try {
+                sessionServiceI.logout(accessToken);
+            } catch (IncorrectAccessTokenException e1) {
+                e1.printStackTrace();
+            }
             window.setScene(authStage.getScene());
         });
         logoutBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
