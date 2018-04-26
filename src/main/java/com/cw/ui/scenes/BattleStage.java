@@ -2,7 +2,6 @@ package com.cw.ui.scenes;
 
 import com.cw.entities.Set;
 import com.cw.entities.User;
-import com.cw.exceptions.FighterException;
 import com.cw.services.SessionServiceI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
