@@ -95,7 +95,10 @@ public class BattleStage implements BasicStage {
 
         // Setting up back button.
         backBtn = new Button("Back");
-        backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
+        backBtn.setOnAction(e -> {
+            setList.getItems().clear();
+            window.setScene(navigationStage.getScene());
+        });
 
         layout.add(logArea, 0, 0);
         layout.add(battleMode, 0, 1);
@@ -179,12 +182,10 @@ public class BattleStage implements BasicStage {
             if(!battleMode.isSelected()) {
                 resultId = sessionServiceI.startFightAgainstUsers(selectedSet,
                     accessToken, "Duel");
-                System.out.println(resultId);
                 qs = new QueryServer(resultId,"Duel");
             } else {
                 resultId = sessionServiceI.startFightAgainstBot(selectedSet,
                         accessToken, "Bot");
-                System.out.println(resultId);
                 qs = new QueryServer(resultId,"Bot");
             }
             new Thread(qs).start();

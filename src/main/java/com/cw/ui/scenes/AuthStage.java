@@ -60,9 +60,7 @@ public class AuthStage implements BasicStage {
     private Label passwdLbl;
     private Label statusLbl;
 
-    public AuthStage(){//StagesCollection st){
-
-        System.out.println("New auth stage created.");
+    public AuthStage(){
 
         layout = new GridPane();
 
@@ -123,17 +121,11 @@ public class AuthStage implements BasicStage {
 
     private void handleLogin(){
         try {
-
-            System.out.println(emailTxt.getText() + passwdTxt.getText());
-
             User user;
             String accessToken;
             Tuple<String, User> tuple = sessionServiceI.login(emailTxt.getText(), passwdTxt.getText());
             user = tuple.val2;
             accessToken = tuple.val1;
-
-            System.out.println("Login successful: " + user);
-            System.out.println("Received accessToken: " + accessToken);
 
             navigationStage.updateUser(user, accessToken);
 
@@ -143,8 +135,6 @@ public class AuthStage implements BasicStage {
             window.setScene(navigationStage.getScene());
 
         } catch (UserNotFoundException e) {
-            //e.printStackTrace();
-            System.out.println("Login failed");
             statusLbl.setText("Wrong email of password!");
         } catch (IncorrectAccessTokenException e) {
             e.printStackTrace();

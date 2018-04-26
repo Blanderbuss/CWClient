@@ -63,7 +63,6 @@ public class NavigationStage implements BasicStage {
     Button backpackBtn;
 
     public NavigationStage(){
-        System.out.println("New auth stage created.");
 
         layout = new VBox();
 

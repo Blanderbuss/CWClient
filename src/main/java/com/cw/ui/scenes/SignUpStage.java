@@ -87,7 +87,6 @@ public class SignUpStage implements BasicStage {
         signUpBtn = new Button("Sign me up!");
         signUpBtn.setOnAction(e -> {
             boolean isValid = handleSignUp();
-            System.out.println(isValid);
             if(isValid)
                 window.setScene(authStage.getScene());
         });
@@ -134,7 +133,6 @@ public class SignUpStage implements BasicStage {
 
             return true;
         }
-        System.out.println("empty!");
         return false;
     }
 

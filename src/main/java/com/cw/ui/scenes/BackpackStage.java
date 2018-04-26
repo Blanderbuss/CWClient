@@ -116,7 +116,10 @@ public class BackpackStage implements BasicStage{
 
         // Setting up back button.
         backBtn = new Button("Back");
-        backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
+        backBtn.setOnAction(e -> {
+            artsList.getItems().clear();
+            window.setScene(navigationStage.getScene());
+        });
 
         layout.add(artsList, 0, 0);
         layout.add(artInfo, 1, 0);

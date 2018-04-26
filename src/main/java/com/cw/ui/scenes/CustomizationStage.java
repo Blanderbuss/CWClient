@@ -73,7 +73,6 @@ public class CustomizationStage implements BasicStage{
 
                 String selectedSet = String.valueOf(setList.getSelectionModel().getSelectedItems());
                 openCustomizationView(selectedSet);
-                System.out.println(setList.getSelectionModel().getSelectedItems());
             }
 
         });
@@ -106,8 +105,6 @@ public class CustomizationStage implements BasicStage{
         // Setting up back button.
         backBtn = new Button("Back");
         backBtn.setOnAction(e -> window.setScene(navigationStage.getScene()));
-
-
 
         layout.add(setList, 0, 0);
 //        layout.add(levelLbl, 0, 1);
@@ -172,7 +169,6 @@ public class CustomizationStage implements BasicStage{
         }
 
         if(customizationView == null){
-            System.out.println("No set found");
             return;
         }
 
