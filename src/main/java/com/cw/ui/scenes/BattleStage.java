@@ -74,6 +74,7 @@ public class BattleStage implements BasicStage {
         // Setting up layout elements.
         statusLbl = new Label("Press button to search for battle.");
         logArea = new TextArea();
+        logArea.setDisable(true);
         setList = new ComboBox<Set>();
 
         // Setting up back button.
@@ -171,6 +172,7 @@ public class BattleStage implements BasicStage {
         boolean no_result = true;
         String res = "";
         statusLbl.setText("Waiting for battle...");
+        battleBtn.setDisable(true);
         while(no_result){
             res = sessionServiceI.getFightResultForDuel(accessToken, id);
             if(!res.equals("")) {
@@ -184,6 +186,7 @@ public class BattleStage implements BasicStage {
             }
         }
         statusLbl.setText("Battle done! You may start another one.");
+        battleBtn.setDisable(false);
     }
 
 }
