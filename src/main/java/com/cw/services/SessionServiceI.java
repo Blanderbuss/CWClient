@@ -11,9 +11,6 @@ import java.util.List;
 
 public interface SessionServiceI {
 
-    //test method
-    String test() throws InterruptedException;
-
     // starts a valid session;
     // if user with the same credentials already has an unfinished session
     // then deactivate the user's session
